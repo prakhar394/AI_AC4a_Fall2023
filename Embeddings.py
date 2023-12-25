@@ -1,22 +1,18 @@
 import os
 import pandas as pd
-import chromadb
+from langchain.docstore.document import Document
+from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
 
 load_dotenv()
+
 path = os.environ.get("directory")
-
-chroma_client = chromadb.Client()
-
-# Create a collection in ChromaDB
-collection_name = "articles_embeddings"
-collection = chroma_client.get_or_create_collection(name=collection_name)
-
+api_key = os.environ.get("OPENAI_API_KEY")
 # Initialize the TextSplitter
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-
+text_splitter = CharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
+persist_directory = 'db'
 # Function to process CSV files in a directory
 def process_directory(directory_path):
     for filename in os.listdir(directory_path):
@@ -25,37 +21,25 @@ def process_directory(directory_path):
             country_code = filename[:2]  # Assuming the first two letters are the country code
             process_csv(file_path, country_code)
 
-# Function to process a CSV file and add documents to ChromaDB
+    # Function to process a CSV file and add documents to ChromaDB
 def process_csv(file_path, country_code):
     print('Initializing...')
-    df = pd.read_csv(file_path, nrows=10)
+    df = pd.read_csv(file_path)
     df['combined_text'] = df['article_text_Ngram_stopword_lemmatize']  # Replace with your text columns
-
-    for index, row in df.iterrows():
-        # Split text into smaller segments
-        segments = text_splitter.split_text(row['combined_text'])
-
-        # Generate embeddings for each segment and add to ChromaDB
-        for segment in segments:
-
-            # Add segment and its embedding to ChromaDB
-            collection.add(
-                documents=[segment],
-                metadatas=[{
-                    'article_id': row['article_id'],
-                    'article_title': row['article_title'],
-                    'publisher': row['publisher'],
-                    'year': row['year'],
-                    'Domestic': row['Domestic'],
-                    'country_code': country_code
-                }],
-                ids=[f"{row['article_id']}-{index}"]  # Example of creating a unique ID for each segment
-            )
+    df['document'] = df['combined_text'].apply(lambda x: Document(page_content=x))
+    print('Document retrieved!')
+    documents = df['document'].tolist()
+    texts = text_splitter.split_documents(documents)
+    print('Text split!')
+    # Stores embeddings into chromadb database
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    vectordb = Chroma.from_documents(texts, embedding=embeddings, persist_directory=persist_directory)
 
     print('Processing complete.')
-
-    print(collection.peek())
-    print(collection.count())
+    query = "golf"
+    docs = vectordb.similarity_search(query)
+    # print results
+    print(docs[0].page_content)
 
 # Path to the directory containing CSV files
 directory_path = path
