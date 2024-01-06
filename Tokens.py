@@ -30,5 +30,5 @@ directory_path = '/Users/kev/Downloads/now'
 
 # Count tokens in the directory
 # total_token_count = count_tokens_in_directory(directory_path)
-total_token_count = count_tokens_in_file('/Users/kev/Downloads/now/CA_domestic_Ngram_stopword_lematize.csv')
+total_token_count = count_tokens_in_file('/Users/kev/Downloads/now/TZ_domestic_Ngram_stopword_lematize.csv')
 print(f"The total number of tokens in the directory is: {total_token_count}")
