@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-from langchain.embeddings import JinaEmbeddings
-from langchain.vectorstores import Chroma
+from langchain_community.embeddings import JinaEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
 

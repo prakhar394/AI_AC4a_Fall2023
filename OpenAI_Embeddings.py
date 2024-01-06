@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 from langchain.docstore.document import Document
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
+from langchain_community.embeddings.openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
 import time
