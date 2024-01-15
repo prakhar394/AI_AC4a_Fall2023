@@ -5,7 +5,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
-#
 load_dotenv()
 
 path = os.environ.get("directory")
@@ -32,8 +31,8 @@ def process_csv(file_path, country_code):
     texts = text_splitter.split_documents(documents)
     print('Text split!')
     # Stores embeddings into chromadb database
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectordb = Chroma.from_documents(texts, embedding=embeddings, persist_directory=persist_directory)
+    embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    vectordb = Chroma.from_documents(texts, embedding_function=embedding_function, persist_directory=persist_directory)
 
     print('Processing complete.')
     query = "golf"
