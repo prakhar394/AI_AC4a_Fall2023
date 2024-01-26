@@ -7,11 +7,13 @@ from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
 load_dotenv()
 
-path = os.environ.get("directory2")
+path = os.environ.get("directory")
 api_key = os.environ.get("OPENAI_API_KEY")
 # Initialize the TextSplitter
-text_splitter = CharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 persist_directory = 'db'
+embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
 def load_peaceful_countries_data():
     # Path to your CSV file
@@ -42,18 +44,17 @@ def process_directory(directory_path):
             process_csv(file_path, country_code, is_peaceful)
 
     # Function to process a CSV file and add documents to ChromaDB
-def process_csv(file_path, country_code, is_peaceful):
+def process_csv(file_path, country_code, is_peaceful, vectordb):
     print('Initializing...')
-    df = pd.read_csv(file_path)
-    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize']  # Replace with your text columns
+    df = pd.read_csv(file_path, nrows=10)
+    df['combined_text'] = df['article_text_Ngram'].str[:1000]  # Replace with your text columns
     df['document'] = df['combined_text'].apply(lambda x: Document(page_content=x, metadata={'peaceful': is_peaceful,'country_code': country_code}))
     print('Document retrieved!')
     documents = df['document'].tolist()
     texts = text_splitter.split_documents(documents)
     print('Text split!')
     # Stores embeddings into chromadb database
-    embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectordb = Chroma.from_documents(texts, embedding_function, persist_directory=persist_directory)
+    vectordb.add_documents(texts)
 
     print('Processing complete.')
 

@@ -14,7 +14,7 @@ vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedd
 def process_query_csv(file_path, vectordb):
     print('Processing query CSV...')
     df = pd.read_csv(file_path)
-    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize']  # Replace with your text columns
+    df['combined_text'] = df['article_text_Ngram']  # Replace with your text columns
 
     country_similarity = Counter()
     peaceful_count = 0
@@ -29,6 +29,7 @@ def process_query_csv(file_path, vectordb):
             total_rows += 1
             most_similar_doc = similar_docs[0]
             country_code = most_similar_doc.metadata.get('country_code', 'Unknown')
+            print(similar_docs[0].metadata)
             is_peaceful = most_similar_doc.metadata.get('peaceful', False)
             country_similarity[country_code] += 1
             peaceful_count += is_peaceful
@@ -45,5 +46,5 @@ def process_query_csv(file_path, vectordb):
 
 # Example usage
 path = os.environ.get("directory")
-query_file_path = path+'/BD_domestic_Ngram_stopword_lematize.csv'
+query_file_path = path+'/HK_domestic_Ngram_stopword_lematize.csv'
 process_query_csv(query_file_path, vectordb)
