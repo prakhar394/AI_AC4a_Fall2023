@@ -9,10 +9,9 @@ import numpy as np
 load_dotenv()
 
 path = os.environ.get("directory")
-api_key = os.environ.get("OPENAI_API_KEY")
 # Initialize the TextSplitter
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
-persist_directory = 'sorteddb'
+persist_directory = 'db'
 embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
@@ -53,7 +52,7 @@ def process_csv(file_path, country_code, is_peaceful, vectordb):
     skip_rows = np.sort(np.random.choice(range(1, total_rows + 1), size=(total_rows - 2300), replace=False))
     # Read 2300 random rows from the CSV file
     df = pd.read_csv(file_path, skiprows=skip_rows, nrows=2300)
-    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize'].str[:1000]  # Replace with your text columns
+    df['combined_text'] = df['article_text_Ngram'].str[:1000]  # Replace with your text columns
     df['document'] = df['combined_text'].apply(lambda x: Document(page_content=x, metadata={'peaceful': is_peaceful, 'country_code': country_code}))
     print('Document retrieved!')
     documents = df['document'].tolist()
