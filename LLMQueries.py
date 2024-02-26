@@ -43,22 +43,29 @@ def query_peace_definitions(categories, peacedb):
 print("Querying peacedb for peace category definitions...")
 peace_definitions = query_peace_definitions(peace_categories, peacedb)
 
-def generate_prompt_for_gpt4(retrieved_docs):
-    """
-    Generate a structured prompt from retrieved documents for GPT-4.
-    """
-    contexts = "\n\n".join([f"[Context from Document {i+1}]\n{doc.page_content}" for i, doc in enumerate(retrieved_docs)])
-    prompt = (
-        "You are an AI trained to analyze text for insights into a country's state of peace. Below are excerpts from various articles that contain information relevant to assessing the peacefulness of a country. Based on these excerpts, provide a summary that concludes whether the country is generally peaceful or not. Use concise and clear reasoning based on the provided text. If the information is insufficient for a determination, explain why."
-        "\n\n---\n\n"
-        f"{contexts}\n\n"
-    )
+def preprocess_documents(documents):
+    summaries = []
+    for doc in documents:
+        # Summarize or extract key information from each document
+        summary = {
+            'country': doc.metadata.get('country_code', 'No CC'),
+            'snippet': doc.page_content[:200] + '...',  # Example of simple summarization
+            'peaceful': doc.metadata.get('peaceful', False)
+        }
+        summaries.append(summary)
+    return summaries
+
+def generate_prompt(summaries):
+    prompt = "Here are summaries of documents related to peace categories from a recent search. Based on these summaries, please analyze and provide insights into the state of peace based on the provided information.\n\n"
+    for i, summary in enumerate(summaries, 1):
+        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\nPeace Status: {summary['peaceful']}\n\n"
+    prompt += "Given these summaries, what can be concluded about the state of peace in the relevant areas or contexts?"
     return prompt
 
 def get_relevant_articles_for_categories(categories, vectordb):
     relevant_articles = []
     for category in categories:
-        search_results = vectordb.similarity_search(category, top_n=10)
+        search_results = vectordb.similarity_search(category, top_n=3)
         for article in search_results:
             country_code = article.metadata.get('country_code', 'Unknown')
             print(category + ": " + country_code)
@@ -76,10 +83,3 @@ def extract_country_codes(articles):
 print("Querying vectordb for relevant articles...")
 relevant_articles = get_relevant_articles_for_categories(peace_categories, vectordb)
 country_codes = extract_country_codes(relevant_articles)
-
-#query = "Is this country peaceful"
-#matching_docs = vectordb.similarity_search(query)
-
-#answer = chain.run(input_documents=generate_prompt_for_gpt4(matching_docs), question=query)
-#retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-#print(retrieval_chain.run(query))
