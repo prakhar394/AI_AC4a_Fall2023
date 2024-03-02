@@ -12,7 +12,7 @@ from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from dotenv import load_dotenv
-from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 
 load_dotenv()
@@ -23,13 +23,14 @@ llm = ChatOpenAI(temperature=0.8, model_name='gpt-4-0125-preview')
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 article_directory = 'db'
 peace_directory = 'peacedb'
-embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=article_directory, embedding_function=embedding_function)
 peacedb = Chroma(persist_directory=peace_directory, embedding_function=embedding_function)
 
 chain = load_qa_chain(llm, chain_type="stuff",verbose=True)
 
-peace_categories = ["Crosscutting structures",
+peace_categories = ["Cooperative forms of interdependence","A Vision of Peace"]
+peace_categories1 = ["Crosscutting structures",
                     "Cooperative forms of interdependence",
                     "Socialization of peaceful values and attitudes",
                     "Overarching levels of integrative governance",
@@ -60,8 +61,8 @@ large_categories = ["Positive Intergroup Reciprocity",
                     "Positive Intergroup History",
                     "Negative Intergroup History"
                     ]
-df = pd.read_csv(path+"categories/categories.csv", header=None)
-AC4_categories = df[0].tolist()
+#df = pd.read_csv(path+"categories/categories.csv", header=None)
+#AC4_categories = df[0].tolist()
 
 def query_peace_definitions(categories, peacedb):
     definitions = []
@@ -105,12 +106,32 @@ def remove_duplicates(documents):
             unique_documents.append(doc)
     return unique_documents
 
-def generate_prompt(summaries,category):
-    prompt = f"Here are summaries of documents related to {category.page_content} from a recent search. Based on these summaries, please analyze and provide insights into the state of peace based on the provided information.\n\n"
-    for i, summary in enumerate(summaries, 1):
-        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\nPeace Status: {summary['peaceful']}\n\n"
-    prompt += f"Given these summaries, what can be concluded about the state of peace in the relevant areas or contexts? Be very specific to the {category.page_content} components of peacekeeping but try to make some general connections across all articles instead of talking about specific articles."
+
+def generate_prompt(summaries, category):
+    peaceful_summaries = []
+    nonpeaceful_summaries = []
+
+    # Separate summaries into peaceful and nonpeaceful
+    for summary in summaries:
+        if summary['peaceful']:
+            peaceful_summaries.append(summary)
+        else:
+            nonpeaceful_summaries.append(summary)
+
+    prompt = f"Here are summaries of documents related to {category.page_content} from a recent search, categorized by their peace status. Based on these summaries, please analyze and provide insights into the state of peace and peace sustainability.\n\n"
+
+    prompt += "Peaceful Countries:\n"
+    for i, summary in enumerate(peaceful_summaries, 1):
+        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
+
+    prompt += "Non-Peaceful Countries:\n"
+    for i, summary in enumerate(nonpeaceful_summaries, 1):
+        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
+
+    prompt += f"Given these summaries of peaceful and non-peaceful countries, compare and analyze the factors contributing to peace sustainability in these contexts. Highlight any patterns or differences observed between the two groups, specifically in relation to the {category.page_content} components of sustaining peace."
+
     return prompt
+
 
 def get_relevant_articles_for_categories(categories, vectordb):
     relevant_articles = []

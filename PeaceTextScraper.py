@@ -7,7 +7,7 @@ from PIL import Image
 from dotenv import load_dotenv
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -20,7 +20,7 @@ path = os.environ.get("peace_dir")
 # Initialize the TextSplitter
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 persist_directory = 'peacedb'
-embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
 def preprocess_text(text):

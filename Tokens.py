@@ -21,7 +21,7 @@ def count_tokens_in_directory(directory_path):
 # Function to count tokens in a single CSV file
 def count_tokens_in_file(file_path):
     df = pd.read_csv(file_path)
-    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize']  # Replace with your text columns
+    df['combined_text'] = df['article_text_Ngram']  # Replace with your text columns
     token_counts = df['combined_text'].apply(num_tokens_from_string)
     return token_counts.sum()
 
