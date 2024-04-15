@@ -18,7 +18,7 @@ from langchain.chains.question_answering import load_qa_chain
 load_dotenv()
 path = os.environ.get("peace_dir")
 openai.api_key = os.environ.get("OPENAI_API_KEY")
-llm = ChatOpenAI(temperature=0.8, model_name='gpt-4-0125-preview')
+llm = ChatOpenAI(temperature=0.8, model_name='gpt-4-turbo-2024-04-09')
 
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 article_directory = 'db'
@@ -29,8 +29,8 @@ peacedb = Chroma(persist_directory=peace_directory, embedding_function=embedding
 
 chain = load_qa_chain(llm, chain_type="stuff",verbose=True)
 
-peace_categories = ["Cooperative forms of interdependence","A Vision of Peace"]
-peace_categories1 = ["Crosscutting structures",
+cat = ["Positive Intergroup Reciprocity"]
+peace_categories = ["Crosscutting structures",
                     "Cooperative forms of interdependence",
                     "Socialization of peaceful values and attitudes",
                     "Overarching levels of integrative governance",
@@ -61,7 +61,8 @@ large_categories = ["Positive Intergroup Reciprocity",
                     "Positive Intergroup History",
                     "Negative Intergroup History"
                     ]
-#df = pd.read_csv(path+"categories/categories.csv", header=None)
+
+#df = pd.read_csv(path+"/categories/categories.csv", header=None)
 #AC4_categories = df[0].tolist()
 
 def query_peace_definitions(categories, peacedb):
@@ -107,7 +108,7 @@ def remove_duplicates(documents):
     return unique_documents
 
 
-def generate_prompt(summaries, category):
+def generate_prompt(summaries, category, category_definition):
     peaceful_summaries = []
     nonpeaceful_summaries = []
 
@@ -120,6 +121,9 @@ def generate_prompt(summaries, category):
 
     prompt = f"Here are summaries of documents related to {category.page_content} from a recent search, categorized by their peace status. Based on these summaries, please analyze and provide insights into the state of peace and peace sustainability.\n\n"
 
+    prompt += "Definitions:\n"
+    prompt += f"{category.page_content}: {category_definition.page_content}\n"
+
     prompt += "Peaceful Countries:\n"
     for i, summary in enumerate(peaceful_summaries, 1):
         prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
@@ -128,7 +132,7 @@ def generate_prompt(summaries, category):
     for i, summary in enumerate(nonpeaceful_summaries, 1):
         prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
 
-    prompt += f"Given these summaries of peaceful and non-peaceful countries, compare and analyze the factors contributing to peace sustainability in these contexts. Highlight any patterns or differences observed between the two groups, specifically in relation to the {category.page_content} components of sustaining peace."
+    prompt += f"Given these summaries, describe the impact of {category.page_content} on the conditions of peace and how peace is sustained. Be very specific to the {category.page_content} components of peaceful societies but try to make some general connections across all articles. Please try to talk equally about peaceful and nonpeaceful aspects. Please reference specific points in individual articles to back up your point."
 
     return prompt
 
@@ -149,20 +153,13 @@ def get_relevant_articles_for_categories(categories, vectordb):
 
 
 print("Querying vectordb for relevant articles...")
-definitions = query_peace_definitions(categories=peace_categories,peacedb=peacedb)
+definitions = query_peace_definitions(categories=cat,peacedb=peacedb)
 for definition in definitions:
     documents = get_relevant_articles_for_categories(definition,vectordb=vectordb)
     unique_documents = remove_duplicates(documents)
     preprocessed_summaries = preprocess_documents(unique_documents)
-    prompt = generate_prompt(preprocessed_summaries,definition[0])
-    retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-    print(retrieval_chain.run(prompt))
-    print("****************************************************\n\n")
-
-
-#query = "Is this country peaceful"
-#matching_docs = vectordb.similarity_search(query)
-
-#answer = chain.run(input_documents=generate_prompt_for_gpt4(matching_docs), question=query)
-#retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-#print(retrieval_chain.run(query))
+    prompt = generate_prompt(preprocessed_summaries,definition[0],definition[1])
+    print(prompt)
+    #retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
+    #print(retrieval_chain.run(prompt))
+    print("*************************************************************************************\n")
