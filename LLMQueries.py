@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import openai
-import chromadb
 import langchain
 from langchain.chains import RetrievalQA, SimpleSequentialChain, LLMChain
 from langchain.llms import OpenAI
