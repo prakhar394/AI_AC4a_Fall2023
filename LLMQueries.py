@@ -18,7 +18,7 @@ from langchain.chains.question_answering import load_qa_chain
 load_dotenv()
 path = os.environ.get("peace_dir")
 openai.api_key = os.environ.get("OPENAI_API_KEY")
-llm = ChatOpenAI(temperature=0.8, model_name='gpt-4-turbo-2024-04-09')
+llm = ChatOpenAI(temperature=0.8, model_name='gpt-4o-2024-05-13')
 
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 article_directory = 'db'
@@ -29,7 +29,7 @@ peacedb = Chroma(persist_directory=peace_directory, embedding_function=embedding
 
 chain = load_qa_chain(llm, chain_type="stuff",verbose=True)
 
-cat = ["Positive Intergroup Reciprocity"]
+cat = ["Positive Intergroup Reciprocity NOT Negative Intergroup Reciprocity"]
 peace_categories = ["Crosscutting structures",
                     "Cooperative forms of interdependence",
                     "Socialization of peaceful values and attitudes",
@@ -121,8 +121,8 @@ def generate_prompt(summaries, category, category_definition):
 
     prompt = f"Here are summaries of documents related to {category.page_content} from a recent search, categorized by their peace status. Based on these summaries, please analyze and provide insights into the state of peace and peace sustainability.\n\n"
 
-    prompt += "Definitions:\n"
-    prompt += f"{category.page_content}: {category_definition.page_content}\n"
+    #prompt += "Definitions:\n"
+    #prompt += f"{category.page_content}: {category_definition.page_content}\n"
 
     prompt += "Peaceful Countries:\n"
     for i, summary in enumerate(peaceful_summaries, 1):
@@ -132,7 +132,7 @@ def generate_prompt(summaries, category, category_definition):
     for i, summary in enumerate(nonpeaceful_summaries, 1):
         prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
 
-    prompt += f"Given these summaries, describe the impact of {category.page_content} on the conditions of peace and how peace is sustained. Be very specific to the {category.page_content} components of peaceful societies but try to make some general connections across all articles. Please try to talk equally about peaceful and nonpeaceful aspects. Please reference specific points in individual articles to back up your point."
+    prompt += f"Given these summaries, describe the impact of {category.page_content} on the conditions of peace and how peace is sustained. Be very specific to the {category.page_content} components of peaceful societies but try to make some general connections across all articles. Please try to talk equally about peaceful and nonpeaceful aspects."
 
     return prompt
 
@@ -159,7 +159,7 @@ for definition in definitions:
     unique_documents = remove_duplicates(documents)
     preprocessed_summaries = preprocess_documents(unique_documents)
     prompt = generate_prompt(preprocessed_summaries,definition[0],definition[1])
-    print(prompt)
-    #retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-    #print(retrieval_chain.run(prompt))
+    #print(prompt)
+    retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
+    print(retrieval_chain.run(prompt))
     print("*************************************************************************************\n")
