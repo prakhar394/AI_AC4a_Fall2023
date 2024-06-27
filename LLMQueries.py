@@ -1,16 +1,12 @@
 import os
 import pandas as pd
 import openai
-import langchain
-from langchain.chains import RetrievalQA, SimpleSequentialChain, LLMChain
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 
 load_dotenv()
@@ -27,7 +23,7 @@ peacedb = Chroma(persist_directory=peace_directory, embedding_function=embedding
 
 chain = load_qa_chain(llm, chain_type="stuff",verbose=True)
 
-cat = ["Positive Intergroup Reciprocity NOT Negative Intergroup Reciprocity"]
+cat = ["INTERGROUP TOLERANCE, RESPECT, KINDNESS, HELP OR SUPPORT","INTERGROUP INTOLERANCE, DISRESPECT, AGGRESSION, OBSTRUCTION, OR HINDRANCE"]
 peace_categories = ["Crosscutting structures",
                     "Cooperative forms of interdependence",
                     "Socialization of peaceful values and attitudes",
@@ -139,7 +135,7 @@ def get_relevant_articles_for_categories(categories, vectordb):
     relevant_articles = []
     countries = []
     for category in categories:
-        search_results = vectordb.similarity_search(category.page_content, top_n=5)
+        search_results = vectordb.similarity_search(category.page_content, n=5)
         for article in search_results:
             country_code = article.metadata.get('country_code', 'Unknown')
             if country_code not in countries:
@@ -157,7 +153,7 @@ for definition in definitions:
     unique_documents = remove_duplicates(documents)
     preprocessed_summaries = preprocess_documents(unique_documents)
     prompt = generate_prompt(preprocessed_summaries,definition[0],definition[1])
-    #print(prompt)
-    retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-    print(retrieval_chain.run(prompt))
+    print(prompt)
+    #retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
+    #print(retrieval_chain.run(prompt))
     print("*************************************************************************************\n")

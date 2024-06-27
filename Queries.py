@@ -1,15 +1,19 @@
 import os
 import pandas as pd
+import getpass
 from collections import Counter
 from dotenv import load_dotenv
-from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
+from langchain.text_splitter import CharacterTextSplitter
 
 load_dotenv()
 
 # Initialize the vector database
+os.environ["OPENAI_API_KEY"] = getpass.getpass()
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
 persist_directory = 'db'
-embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
 
