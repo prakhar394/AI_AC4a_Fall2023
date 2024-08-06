@@ -11,6 +11,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 
+# print('status')
 load_dotenv()
 # Initialize the vector database
 os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
