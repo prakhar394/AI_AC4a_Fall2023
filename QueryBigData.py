@@ -1,3 +1,7 @@
+'''
+Code used for finding classfication accuracy with decreasing size of dataset
+'''
+
 import os
 import pandas as pd
 import random

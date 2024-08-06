@@ -1,3 +1,7 @@
+'''
+Code for printing sample articles from Nigeria and New Zealand from vector database
+'''
+
 import os
 import pandas as pd
 import random
