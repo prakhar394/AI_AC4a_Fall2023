@@ -12,7 +12,7 @@ from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 
 load_dotenv()
-
+# print('status')
 # Initialize the vector database
 os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
