@@ -1,3 +1,6 @@
+'''
+Code for peace classification of countries from vector database
+'''
 import os
 import pandas as pd
 import getpass

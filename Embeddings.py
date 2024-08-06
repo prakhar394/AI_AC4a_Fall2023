@@ -1,3 +1,6 @@
+'''
+Code for building vector database from NOW articles
+'''
 import os
 import getpass
 import pandas as pd

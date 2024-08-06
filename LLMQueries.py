@@ -1,3 +1,7 @@
+'''
+Code for RAG process to find peace insights in embeddings
+'''
+
 import os
 import pandas as pd
 import openai

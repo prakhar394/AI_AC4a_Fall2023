@@ -1,3 +1,6 @@
+'''
+Code for embedding vector database with 4 different levels of peace
+'''
 import os
 import pandas as pd
 from langchain.docstore.document import Document

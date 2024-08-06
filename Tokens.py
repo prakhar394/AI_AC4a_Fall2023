@@ -1,3 +1,6 @@
+'''
+Code for counting tokens of texts
+'''
 import os
 import pandas as pd
 import tiktoken

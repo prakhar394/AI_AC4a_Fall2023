@@ -1,3 +1,6 @@
+'''
+Code for Plotting PIR vs NIR similarity
+'''
 from langchain.docstore.document import Document
 from langchain.vectorstores import Chroma
 from langchain.embeddings.openai import OpenAIEmbeddings

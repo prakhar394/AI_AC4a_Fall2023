@@ -1,3 +1,6 @@
+'''
+Code for classifying countries with 4 levels of peace
+'''
 import os
 import pandas as pd
 from collections import Counter

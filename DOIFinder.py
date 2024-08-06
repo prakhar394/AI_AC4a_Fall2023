@@ -1,3 +1,6 @@
+'''
+Code for finding DOI of references of Fry article
+'''
 import requests
 import os
 from dotenv import load_dotenv
