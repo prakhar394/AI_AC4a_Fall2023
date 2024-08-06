@@ -1,139 +1,118 @@
-from langchain.docstore.document import Document
-from langchain.vectorstores import Chroma
-from langchain.embeddings.openai import OpenAIEmbeddings
-from dotenv import load_dotenv
 import os
-import openai
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.preprocessing import MinMaxScaler
-from langchain.chains import RetrievalQA, SimpleSequentialChain, LLMChain
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
-load_dotenv()
-path = os.environ.get("peace_dir")
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-llm = ChatOpenAI(temperature=0.8, model_name='gpt-4o-2024-05-13')
-
 import pandas as pd
-import chromadb
-import langchain
-from langchain.prompts import PromptTemplate
+import random
+from time import sleep
+from dotenv import load_dotenv
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.chains.question_answering import load_qa_chain
 
-peace_directory = 'peacedb'
-article_directory = 'db'
-embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
-vectordb = Chroma(persist_directory=article_directory, embedding_function=embedding_function)
-peacedb = Chroma(persist_directory=peace_directory, embedding_function=embedding_function)
+load_dotenv()
+
+# Initialize the vector database
+os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
+persist_directory = 'db'
+embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
+vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
+path = os.environ.get("directory")
 
-chain = load_qa_chain(llm, chain_type="stuff",verbose=True)
+def load_peaceful_countries_data():
+    csv_file_path = path + '/peaceful/peaceful_countries.csv'
 
+    # Read the CSV file into a DataFrame
+    try:
+        df = pd.read_csv(csv_file_path)
+    except FileNotFoundError:
+        print(f"File not found: {csv_file_path}")
+        return {}
 
-pir_embedding = embedding_function.embed_query("Positive Intergroup Reciprocity")
-nir_embedding = embedding_function.embed_query("Negative Intergroup Reciprocity")
-new_embedding = [nir - pir for pir, nir in zip(pir_embedding, nir_embedding)]
+    # Convert the DataFrame to a dictionary
+    peaceful_countries = dict(zip(df['country_code'], df['peaceful']))
+    return peaceful_countries
 
-def query_peace_definitions(categories, peacedb):
-    definitions = []
-    for category in categories:
-        # Assuming similarity_search returns a list of Document objects with the most relevant first
-        results = peacedb.similarity_search_by_vector(category, top_n=3)
-        category_definition = []
-        for result in results:
-            category_definition.append(result)
-        definitions.append(category_definition)
-    return definitions
+# Load the peaceful countries data
+peaceful_countries = load_peaceful_countries_data()
 
+def process_query_csv(file_path, vectordb, file_country_code, nrows):
+    # Determine the total number of rows in the file
+    total_rows = sum(1 for _ in open(file_path, 'r')) - 1  # Subtract 1 for the header row
 
-print("Querying peacedb for peace category definitions...")
+    # Randomly select a starting point
+    start_row = random.randint(0, total_rows - nrows)
 
-def preprocess_documents(documents):
-    summaries = []
-    for doc in documents:
-        # Summarize or extract key information from each document
-        summary = {
-            'country': doc.metadata.get('country_code', 'No CC'),
-            'snippet': doc.page_content[:1000] + '...',  # Example of simple summarization
-            'peaceful': doc.metadata.get('peaceful', False)
-        }
-        summaries.append(summary)
-    return summaries
+    # Read nrows rows from the random starting point
+    df = pd.read_csv(file_path, skiprows=range(1, start_row + 1), nrows=nrows)
 
-def remove_duplicates(documents):
-    seen = set()
-    unique_documents = []
-    for doc in documents:
-        identifier = doc.page_content  # Or any other unique combination of attributes
-        if identifier not in seen:
-            seen.add(identifier)
-            unique_documents.append(doc)
-    return unique_documents
+    df['combined_text'] = df['article_text_Ngram'].str[:1000]
+    #df['combined_text'] = df['article_text_Ngram']
 
+    selected_articles = []
 
-def generate_prompt(summaries, category):
-    peaceful_summaries = []
-    nonpeaceful_summaries = []
+    for index, row in df.iterrows():
+        try:
+            query_text = row['combined_text']
 
-    # Separate summaries into peaceful and nonpeaceful
-    for summary in summaries:
-        if summary['peaceful']:
-            peaceful_summaries.append(summary)
-        else:
-            nonpeaceful_summaries.append(summary)
+            # Ensure query_text is a string
+            if not isinstance(query_text, str):
+                raise ValueError(f"Non-string query_text at row {index}: {query_text}")
 
-    prompt = f"Here are summaries of documents related to Negative Intergroup Reciprocity MINUS Positive Intergroup Reciprocity from a recent search, categorized by their peace status. Based on these summaries, please analyze and provide insights into the state of peace and peace sustainability.\n\n"
+            # print(f"Processing row {index} with query_text: {query_text[:100]}")  # Print the first 100 characters
+            k_val = 10
+            # Get the most similar documents
+            similar_docs = vectordb.similarity_search(query_text, k=k_val)
 
-    #prompt += "Definitions:\n"
-    #prompt += f"{category.page_content}: {category_definition.page_content}\n"
+            # Filter out documents where the country code matches the file's country code
+            filtered_docs = [doc for doc in similar_docs if
+                                 doc.metadata.get('country_code', 'Unknown') != file_country_code]
 
-    prompt += "Peaceful Countries:\n"
-    for i, summary in enumerate(peaceful_summaries, 1):
-        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
+            while not filtered_docs:
+                k_val *= 2
+                similar_docs = vectordb.similarity_search(query_text, k=k_val)
 
-    prompt += "Non-Peaceful Countries:\n"
-    for i, summary in enumerate(nonpeaceful_summaries, 1):
-        prompt += f"Country {i}: {summary['country']}\nSummary: {summary['snippet']}\n\n"
+                # Filter out documents where the country code matches the file's country code
+                filtered_docs = [doc for doc in similar_docs if
+                                 doc.metadata.get('country_code', 'Unknown') != file_country_code]
 
-    prompt += f"Given these summaries, describe the impact of Negative Intergroup Reciprocity MINUS Positive Intergroup Reciprocity on the conditions of peace and how peace is sustained. Be very specific to the Negative Intergroup Reciprocity MINUS Positive Intergroup Reciprocity components of peaceful societies but try to make some general connections across all articles. Please try to talk equally about peaceful and nonpeaceful aspects."
+            # Proceed if there are any documents left after filtering
+            if filtered_docs:
+                # Always take the first document from the list
+                most_similar_doc = filtered_docs[0]
+                country_code = most_similar_doc.metadata.get('country_code', 'Unknown')
+                is_peaceful = most_similar_doc.metadata.get('peaceful', False)
+                peaceful_flag = 1 if is_peaceful else 0
+                selected_articles.append((row['article_text_Ngram'][:2000], most_similar_doc.page_content[:2000], peaceful_flag, country_code))
+        except Exception as e:
+            print(f"Error processing row {index}: {e}")
+            sleep(30)
+            continue
 
-    return prompt
+    print(f"Processed {len(selected_articles)} rows from file {file_path}")
+    return selected_articles
 
+def process_directory(directory_path, vectordb):
+    nrows = 1024
+    selected_articles_nigeria = []
+    selected_articles_new_zealand = []
 
-def get_relevant_articles_for_categories(categories, vectordb):
-    relevant_articles = []
-    countries = []
-    for category in categories:
-        search_results = vectordb.similarity_search(category.page_content, top_n=5)
-        for article in search_results:
-            country_code = article.metadata.get('country_code', 'Unknown')
-            if country_code not in countries:
-                countries.append(country_code)
-        relevant_articles.extend(search_results)
-    print(categories[0].page_content + ": ")
-    print(*countries, sep=", ")
-    return relevant_articles
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(directory_path, filename)
+            file_country_code = filename[:2]  # Assuming the first two letters are the country code
+            if file_country_code == "NG":  # Nigeria
+                selected_articles_nigeria.extend(process_query_csv(file_path, vectordb, file_country_code, nrows))
+            elif file_country_code == "NZ":  # New Zealand
+                selected_articles_new_zealand.extend(process_query_csv(file_path, vectordb, file_country_code, nrows))
 
-cat = []
-cat.append(new_embedding)
+    # Save selected articles to CSV files
+    save_to_csv('nigeria_articles.csv', selected_articles_nigeria)
+    save_to_csv('new_zealand_articles.csv', selected_articles_new_zealand)
 
-print("Querying vectordb for relevant articles...")
-definitions = query_peace_definitions(categories=cat,peacedb=peacedb)
-for definition in definitions:
-    documents = get_relevant_articles_for_categories(definition,vectordb=vectordb)
-    unique_documents = remove_duplicates(documents)
-    preprocessed_summaries = preprocess_documents(unique_documents)
-    prompt = generate_prompt(preprocessed_summaries,'Negative Intergroup Reciprocity NOT Positive Intergroup Reciprocity')
-    print(prompt)
-    retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectordb.as_retriever())
-    print(retrieval_chain.run(prompt))
-    print("*************************************************************************************\n")
+def save_to_csv(file_name, articles):
+    df = pd.DataFrame(articles, columns=['article_text', 'most_similar_doc_text', 'peaceful_flag', 'country_code'])
+    df.to_csv(file_name, index=False)
 
-
-
-
-
-
+if __name__ == "__main__":
+    path = os.environ.get("directory")
+    path += "/train"
+    process_directory(path, vectordb)

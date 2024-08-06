@@ -98,7 +98,7 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
             t+=1
         if e is False:
             f+=1
-    if (t / (t+f)) > 0.60:
+    if (t / (t+f)) > 0.70:
         print(t / (t+f))
         final_prediction = True
     else:
@@ -117,12 +117,12 @@ def evaluate_metrics(y_true, y_pred):
 def process_directory(directory_path, vectordb):
     #nrows_list = [2048 // (2 ** i) for i in range(10)]
 
-    nrows_list = [1024]
+    nrows_list = [256, 128, 64, 32, 16, 8, 4]
     all_results = {nrows: [] for nrows in nrows_list}
 
     for nrows in nrows_list:
         results = []
-        for run in range(1):
+        for run in range(8):
             y_true_all = []
             y_pred_all = []
             for filename in os.listdir(directory_path):
