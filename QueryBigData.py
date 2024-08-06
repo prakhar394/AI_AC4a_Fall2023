@@ -102,7 +102,7 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
             t+=1
         if e is False:
             f+=1
-    if (t / (t+f)) > 0.70:
+    if (t / (t + f)) > 0.70:
         print(t / (t+f))
         final_prediction = True
     else:

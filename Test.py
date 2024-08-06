@@ -21,6 +21,7 @@ embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 path = os.environ.get("directory")
 
+
 def load_peaceful_countries_data():
     csv_file_path = path + '/peaceful/peaceful_countries.csv'
 
@@ -35,8 +36,10 @@ def load_peaceful_countries_data():
     peaceful_countries = dict(zip(df['country_code'], df['peaceful']))
     return peaceful_countries
 
+
 # Load the peaceful countries data
 peaceful_countries = load_peaceful_countries_data()
+
 
 def process_query_csv(file_path, vectordb, file_country_code, nrows):
     # Determine the total number of rows in the file
@@ -49,7 +52,7 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
     df = pd.read_csv(file_path, skiprows=range(1, start_row + 1), nrows=nrows)
 
     df['combined_text'] = df['article_text_Ngram'].str[:1000]
-    #df['combined_text'] = df['article_text_Ngram']
+    # df['combined_text'] = df['article_text_Ngram']
 
     selected_articles = []
 
@@ -68,7 +71,7 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
 
             # Filter out documents where the country code matches the file's country code
             filtered_docs = [doc for doc in similar_docs if
-                                 doc.metadata.get('country_code', 'Unknown') != file_country_code]
+                             doc.metadata.get('country_code', 'Unknown') != file_country_code]
 
             while not filtered_docs:
                 k_val *= 2
@@ -85,7 +88,8 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
                 country_code = most_similar_doc.metadata.get('country_code', 'Unknown')
                 is_peaceful = most_similar_doc.metadata.get('peaceful', False)
                 peaceful_flag = 1 if is_peaceful else 0
-                selected_articles.append((row['article_text_Ngram'][:2000], most_similar_doc.page_content[:2000], peaceful_flag, country_code))
+                selected_articles.append((row['article_text_Ngram'][:2000], most_similar_doc.page_content[:2000],
+                                          peaceful_flag, country_code))
         except Exception as e:
             print(f"Error processing row {index}: {e}")
             sleep(30)
@@ -93,6 +97,7 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
 
     print(f"Processed {len(selected_articles)} rows from file {file_path}")
     return selected_articles
+
 
 def process_directory(directory_path, vectordb):
     nrows = 1024
@@ -112,9 +117,11 @@ def process_directory(directory_path, vectordb):
     save_to_csv('nigeria_articles.csv', selected_articles_nigeria)
     save_to_csv('new_zealand_articles.csv', selected_articles_new_zealand)
 
+
 def save_to_csv(file_name, articles):
     df = pd.DataFrame(articles, columns=['article_text', 'most_similar_doc_text', 'peaceful_flag', 'country_code'])
     df.to_csv(file_name, index=False)
+
 
 if __name__ == "__main__":
     path = os.environ.get("directory")
