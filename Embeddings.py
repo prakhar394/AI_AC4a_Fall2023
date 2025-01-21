@@ -17,7 +17,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 path = os.environ.get("directory")
 # Initialize the TextSplitter
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
-persist_directory = 'db'
+persist_directory = 'allsorteddb'
 embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
@@ -62,7 +62,7 @@ def process_csv(file_path, country_code, is_peaceful, vectordb):
         df = pd.read_csv(file_path, skiprows=skip_rows, nrows=6000)
     elif country_code == 'HK':
         df = pd.read_csv(file_path)
-    df['combined_text'] = df['article_text_Ngram'].str[100:2000]
+    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize'].str[100:2000]
     df['document'] = df['combined_text'].apply(lambda x: Document(page_content=x, metadata={'peaceful': is_peaceful, 'country_code': country_code}))
     print('Document retrieved!')
     documents = df['document'].tolist()
@@ -74,7 +74,7 @@ def process_csv(file_path, country_code, is_peaceful, vectordb):
     print('Processing complete.')
 
 # Path to the directory containing CSV files
-directory_path = path+"/train"
+directory_path = path
 
 # Process all CSV files in the directory
 process_directory(directory_path)

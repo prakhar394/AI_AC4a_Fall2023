@@ -6,32 +6,33 @@ import pandas as pd
 import getpass
 from collections import Counter
 from dotenv import load_dotenv
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
+import openai
 
+# Load environment variables
 load_dotenv()
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-# Initialize the vector database
-os.environ["OPENAI_API_KEY"] = getpass.getpass()
+# Initialize text splitter and vector database
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=80)
-persist_directory = 'db'
+persist_directory = 'averagedb'
 embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
 
-
 def process_query_csv(file_path, vectordb, file_country_code):
     print(f'Processing query CSV for {file_country_code}...')
-    df = pd.read_csv(file_path, nrows=1000)
-    df['combined_text'] = df['article_text_Ngram_stopword_lemmatize'].str[:1000]
+    df = pd.read_csv(file_path, skiprows=range(1, 701), nrows=200)
+    #print(df.columns)
+    df['combined_text'] = df['article_text_Ngram'].str[:1000]
 
-    country_similarity = Counter()
+    #country_similarity = Counter()
     peaceful_count = 0
     total_rows = 0
-    overall_peaceful = None  # Initialize overall_peaceful
 
     # Perform similarity search for each row in the DataFrame
-    for index, row in df.iterrows():
+    for _, row in df.iterrows():
         query_text = row['combined_text']
         # Get the most similar documents
         similar_docs = vectordb.similarity_search(query_text)
@@ -43,23 +44,23 @@ def process_query_csv(file_path, vectordb, file_country_code):
         if filtered_docs:
             total_rows += 1
             most_similar_doc = filtered_docs[0]  # The top result after filtering
-            country_code = most_similar_doc.metadata.get('country_code', 'Unknown')
+            #country_code = most_similar_doc.metadata.get('country_code', 'Unknown')
             is_peaceful = most_similar_doc.metadata.get('peaceful', False)
-            country_similarity[country_code] += 1
+            #country_similarity[country_code] += 1
             peaceful_count += is_peaceful
 
     # Determine the overall result for the file
     if total_rows > 0:
-        most_common_country, _ = country_similarity.most_common(1)[0]
+        #most_common_country, _ = country_similarity.most_common(1)[0]
         overall_peaceful = peaceful_count / total_rows > 0.5  # Majority vote
-        peace_percentage = 100*peaceful_count / total_rows
+        peace_percentage = 100 * peaceful_count / total_rows
         print(f"Overall, the country is {'peaceful' if overall_peaceful else 'not peaceful'}")
-        print(f"The country is most similar to {most_common_country}")
     else:
+        overall_peaceful = None
+        peace_percentage = 0
         print(f"No conclusive result for {file_country_code}. Unable to determine if the country is peaceful or not.")
 
     return overall_peaceful, peace_percentage
-
 
 def process_directory(directory_path, vectordb):
     country_results = Counter()
@@ -77,8 +78,10 @@ def process_directory(directory_path, vectordb):
 
     # Print the results for each country
     for country_code, is_peaceful in country_results.items():
-        print(f"{country_code}: {'Peaceful' if is_peaceful else 'Not Peaceful'}")
-
+        if is_peaceful is not None:
+            print(f"{country_code}: {'Peaceful' if is_peaceful else 'Not Peaceful'}")
+        else:
+            print(f"{country_code}: No conclusive result")
 
     # Print peace percentages for each country
     print("\nPeace Percentages:")
@@ -86,7 +89,6 @@ def process_directory(directory_path, vectordb):
         print(f"{country_code}: {peace_percentage:.2f}%")
 
     return country_results
-
 
 # Example usage
 path = os.environ.get("directory")

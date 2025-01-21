@@ -46,11 +46,13 @@ def process_query_csv(file_path, vectordb, file_country_code, nrows):
     # Determine the total number of rows in the file
     total_rows = sum(1 for _ in open(file_path, 'r')) - 1  # Subtract 1 for the header row
 
-    # Randomly select a starting point
-    start_row = random.randint(0, total_rows - nrows)
-
-    # Read nrows rows from the random starting point
-    df = pd.read_csv(file_path, skiprows=range(1, start_row + 1), nrows=nrows)
+    if total_rows < nrows:
+        df = pd.read_csv(file_path, nrows=total_rows-1)
+    else:
+        # Randomly select a starting point
+        start_row = random.randint(0, total_rows - nrows)
+        # Read nrows rows from the random starting point
+        df = pd.read_csv(file_path, skiprows=range(1, start_row + 1), nrows=nrows)
 
     df['combined_text'] = df['article_text_Ngram'].str[:1000]
 
@@ -121,7 +123,7 @@ def evaluate_metrics(y_true, y_pred):
 def process_directory(directory_path, vectordb):
     #nrows_list = [2048 // (2 ** i) for i in range(10)]
 
-    nrows_list = [256, 128, 64, 32, 16, 8, 4]
+    nrows_list = [512,256,128,64]
     all_results = {nrows: [] for nrows in nrows_list}
 
     for nrows in nrows_list:
