@@ -36,5 +36,11 @@
   - Processes text files and outputs the total token count.
   - Useful for analyzing the size and complexity of text datasets.
 
+### **Neural_Networks.ipynb**
+- **Purpose**: Trains neural networks to classify articles based on embeddings.
+- **Key Functionality**:
+  - Uses embeddings as input features.
+  - Implements and trains a neural network model to predict classifications.
+
 AI Project: AC4a: Larry S. Liebovitch, Peter T. Coleman, Melissa Mannis, Kevin Lian
 
