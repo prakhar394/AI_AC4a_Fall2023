@@ -19,7 +19,8 @@ def get_video_id(url):
             parsed_url = urlparse(url)
             return parse_qs(parsed_url.query).get("v", [None])[0]
         elif "youtu.be" in url:
-            return url.split("/")[-1]
+            parsed_url = urlparse(url)
+            return parsed_url.path.lstrip("/")
     except Exception as e:
         logging.error(f"Error extracting video ID from {url}: {e}")
         return None
