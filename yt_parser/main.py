@@ -3,6 +3,7 @@ import os
 from config import YT_LINKS_FILE, OUTPUT_DIR
 from utils import clean_url, create_directory
 from transcript_downloader import download_transcript
+from video_details import get_video_details
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -47,8 +48,16 @@ def main():
 
         logging.info(f"Processing category: {category}")
         for url in urls:
+
             logging.info(f"Processing URL: {url}")
             download_transcript(url, category_dir)
+            logging.info(f"Transcript Downloaded Successfully!")
+
+            logging.info(f"Decoding Youtube URL Information: {url}")
+            seconds_watched, category_watched = get_video_details(url)
+            print(f"Youtube video watched for : ", seconds_watched, " seconds")
+            print(f"Youtube video belongs to : ", category_watched, " category")
+            logging.info(f"Decoded URL Successfully!")
 
 if __name__ == "__main__":
     main()

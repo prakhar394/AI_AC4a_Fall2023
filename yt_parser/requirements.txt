@@ -1,2 +1,4 @@
 python-dotenv
 youtube-transcript-api
+google-api-python-client
+pytube
