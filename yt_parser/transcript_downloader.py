@@ -38,3 +38,13 @@ def download_transcript(video_url, output_folder):
     except Exception as e:
         logging.error(f"Error downloading transcript for {video_url}: {e}")
         return False
+
+def get_transcript(url, output_folder):
+
+    video_id = get_video_id(url)
+    output_file = os.path.join(output_folder, f"{video_id}.txt")
+
+    with open(output_file, "r", encoding="utf-8") as file:
+        file_contents = file.read()
+    
+    return file_contents

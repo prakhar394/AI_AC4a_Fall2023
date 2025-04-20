@@ -1,8 +1,4 @@
 import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 # Input file with YouTube links
 YT_LINKS_FILE = os.getenv("YT_LINKS_FILE", "yt_links.txt")
