@@ -6,8 +6,12 @@ import shutil
 import platform
 from datetime import datetime, timedelta
 import pandas as pd
+import config
+import requests
 
 logging.basicConfig(level=logging.INFO)
+
+API_ENDPOINT = config.API_ENDPOINT
 
 # Function to get the correct history path based on OS
 def get_history_path(browser):

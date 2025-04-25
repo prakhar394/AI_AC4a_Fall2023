@@ -1,9 +1,10 @@
 import nltk
-nltk.data.path.append("/home/ubuntu/nltk_data")  # Add your preferred path
-nltk.download('punkt', download_dir="/home/ubuntu/nltk_data")
+# nltk.data.path.append("/home/ubuntu/nltk_data")  # Add your preferred path
+# nltk.download('punkt', download_dir="/home/ubuntu/nltk_data")
 from collections import defaultdict
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 import json
+import pandas as pd
 
 def split_into_sentences(paragraph):
     """Splits a paragraph into sentences."""
@@ -107,9 +108,35 @@ def classify_emotions(transcript, model_type, model):
 
     return result
 
+def result_to_dataframe(result):
+    # Flatten nested dicts
+    rows = []
+
+    for label, score in result["average_scores"].items():
+        rows.append({
+            "label": label,
+            "avg_score": score,
+            "category": (
+                "respect" if label in result["respect_contempt_json"]["respect_emotions"]
+                else "contempt" if label in result["respect_contempt_json"]["contempt_emotions"]
+                else "other"
+            ),
+            "dominant_attitude": (
+                "yes" if label == result["respect_contempt_json"]["dominant_attitude_emotion"] else "no"
+            ),
+            "dominant_emotion": (
+                "yes" if label == result["dominant_emotion"] else "no"
+            )
+        })
+    return pd.DataFrame(rows)
+
+
 def run_go_emotions(transcript, model_type):
     model, tokenizer = load_model()
     output_json = classify_emotions(transcript, model_type, model)
+    f = result_to_dataframe(output_json)
+    f.to_csv("emotion_output.csv", index = False)
+
     return output_json
 
 # Example usage

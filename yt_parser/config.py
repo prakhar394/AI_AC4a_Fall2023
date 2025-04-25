@@ -44,3 +44,6 @@ CATEGORY_TAGS_MAP = {
             "43" : "Shows",
             "44" : "Trailers"
 }
+
+# EC2 Client API Endpoint
+API_ENDPOINT = "https://your-ec2-api.com/users/history"
