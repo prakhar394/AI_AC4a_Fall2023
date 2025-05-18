@@ -129,34 +129,9 @@ Can be extended to:
 
 ---
 
-## 📊 Output Example
-
-| Video Title     | Timestamp | Utterance                          | Emotion   |
-|-----------------|-----------|------------------------------------|-----------|
-| "How LLMs work" | 00:01     | "In this video we'll explain..."  | Curious   |
-| "Productivity"  | 01:12     | "Start your day with intention..."| Inspired  |
-
----
-
 ## 🛡️ Privacy & Permissions
 
 This app **never uploads video content**—only URLs, transcripts, and metadata. User watch history is stored per-username and can be deleted or encrypted as needed.
-
----
-
-## ✅ TODO / Roadmap
-
-- [ ] Add Firefox support
-- [ ] Asynchronous video processing
-- [ ] UI for timeline-based visualization
-- [ ] OAuth integration for user authentication
-- [ ] Docker deployment
-
----
-
-## 👨‍💻 Contributing
-
-Pull requests are welcome! Please open an issue first for major changes.
 
 ---
 
