@@ -1,145 +1,175 @@
 import nltk
-# nltk.data.path.append("/home/ubuntu/nltk_data")  # Add your preferred path
-# nltk.download('punkt', download_dir="/home/ubuntu/nltk_data")
-from collections import defaultdict
+from collections import defaultdict, Counter
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
-import json
 import pandas as pd
+import sys
+import re
+import torch
 
-def split_into_sentences(paragraph):
-    """Splits a paragraph into sentences."""
-    return nltk.sent_tokenize(paragraph)
+def split_into_paragraphs(text):
+    """Robust paragraph splitting with length filtering"""
+    paragraphs = re.split(r'\n\s*\n+', text.strip())
+    return [p.strip() for p in paragraphs if len(p.strip()) > 25]
 
 def load_model():
-    """Loads the GoEmotions model and tokenizer."""
-    model_name = "goemotions"
-    token = "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"
-    
+    """Load base model with error handling"""
+    model_name = "SamLowe/roberta-base-go_emotions"
     try:
-        model = AutoModelForSequenceClassification.from_pretrained(model_name, token=token)
-        tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
-        print("Model and tokenizer loaded successfully!")
+        model = AutoModelForSequenceClassification.from_pretrained(model_name)
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        print("Base model loaded successfully!")
         return model, tokenizer
-    except OSError as e:
-        print(f"Error loading model: {e}")
+    except Exception as e:
+        print(f"Model loading failed: {e}")
         return None, None
 
-def classify_emotions(transcript, model_type, model):
-    """Processes the transcript and returns emotions as JSON."""
-    transcript = transcript.replace("\n", " ").strip()
-    sentences = split_into_sentences(transcript)
+def classify_emotions_paragraphwise(transcript, model_type, model):
+    """Enhanced paragraph analysis with model selection"""
     
-    if model_type == "roberta_go_emotions":
-        classifier = pipeline(task="text-classification", 
-                             model="SamLowe/roberta-base-go_emotions", 
-                             top_k=None)
-    elif model_type == "go_emotions":
-        classifier = pipeline(task="text-classification", model=model, top_k=None)
-    elif model_type == "siebert":
-        classifier = pipeline(task="sentiment-analysis",
-                             model="siebert/sentiment-roberta-large-english", top_k=None)
-    else:
-        raise ValueError("Invalid model_type. Use 'roberta_go_emotions' or 'go_emotions'")
+    # Clean and prepare text
+    cleaned_text = re.sub(r'\s+', ' ', transcript).strip()
+    paragraphs = split_into_paragraphs(cleaned_text)
     
-    model_outputs = []
-
-    for sentence in sentences:
-        try:
-            output = classifier(sentence[:500])  # Truncate sentence
-            model_outputs.append(output)
-        except RuntimeError as e:
-            print(f"Skipping sentence due to error: {e}")
-    
-    # Initialize counters
+    # Initialize aggregators
     emotion_totals = defaultdict(float)
     emotion_counts = defaultdict(int)
-    
-    for sentence_output in model_outputs:
-        for emotion in sentence_output[0]:
-            label = emotion['label']
-            score = emotion['score']
-            emotion_totals[label] += score
-            emotion_counts[label] += 1
+    emotion_max = defaultdict(float)
+    dominant_emotions = []
+    para_weights = []
 
-    # Compute and sort average scores
-    average_scores_unsorted = {
-        label: (emotion_totals[label] / emotion_counts[label]) if emotion_counts[label] > 0 else 0
-        for label in emotion_totals
-    }
-    average_scores = dict(sorted(average_scores_unsorted.items(), key=lambda x: x[1], reverse=True))
-
-    dominant_emotion = max(average_scores, key=average_scores.get, default=None)
-    dominant_emotion_score = average_scores.get(dominant_emotion, 0)
-
-    # Respect and contempt categories
-    respect_emotions = {"admiration", "approval", "caring"}
-    contempt_emotions = {"annoyance", "disapproval", "disgust"}
-
-    # Extract and sort scores for these emotions
-    respect_scores_unsorted = {label: average_scores[label] for label in respect_emotions if label in average_scores}
-    contempt_scores_unsorted = {label: average_scores[label] for label in contempt_emotions if label in average_scores}
-
-    respect_scores = dict(sorted(respect_scores_unsorted.items(), key=lambda x: x[1], reverse=True))
-    contempt_scores = dict(sorted(contempt_scores_unsorted.items(), key=lambda x: x[1], reverse=True))
-
-    # Dominant label across both
-    combined_attitudes = {**respect_scores, **contempt_scores}
-    if combined_attitudes:
-        dominant_attitude_emotion = max(combined_attitudes, key=combined_attitudes.get)
-        dominant_attitude_score = combined_attitudes[dominant_attitude_emotion]
+    # Configure classifier based on model type
+    if model_type == "roberta_go_emotions":
+        classifier = pipeline(
+            task="text-classification",
+            model="SamLowe/roberta-base-go_emotions",
+            tokenizer=AutoTokenizer.from_pretrained("SamLowe/roberta-base-go_emotions"),
+            top_k=None,
+            device=0 if torch.cuda.is_available() else -1,
+            truncation=True,
+            max_length=512
+        )
+    elif model_type == "go_emotions":
+        classifier = pipeline(
+            task="text-classification",
+            model=model,
+            tokenizer=AutoTokenizer.from_pretrained("SamLowe/roberta-base-go_emotions"),
+            top_k=None,
+            device=0 if torch.cuda.is_available() else -1,
+            truncation=True,
+            max_length=512
+        )
+    elif model_type == "siebert":
+        classifier = pipeline(
+            task="sentiment-analysis",
+            model="siebert/sentiment-roberta-large-english",
+            tokenizer=AutoTokenizer.from_pretrained("siebert/sentiment-roberta-large-english"),
+            top_k=None,
+            device=0 if torch.cuda.is_available() else -1,
+            truncation=True,
+            max_length=512
+        )
     else:
-        dominant_attitude_emotion = None
-        dominant_attitude_score = 0
+        raise ValueError("Invalid model_type. Choose: 'roberta_go_emotions', 'go_emotions', or 'siebert'")
 
-    respect_contempt_json = {
-        "respect_emotions": respect_scores,
-        "contempt_emotions": contempt_scores,
-        "dominant_attitude_emotion": dominant_attitude_emotion,
-        "dominant_attitude_score": dominant_attitude_score
+    for idx, para in enumerate(paragraphs):
+        try:
+            # Get paragraph scores
+            results = classifier(para)
+            if not results:
+                continue
+                
+            para_scores = {item['label']: item['score'] for item in results[0]}
+            para_length = len(para)
+            para_weights.append(para_length)
+
+            # Update aggregators
+            for label, score in para_scores.items():
+                emotion_totals[label] += score * para_length  # Length-weighted
+                emotion_counts[label] += 1
+                emotion_max[label] = max(emotion_max[label], score)
+
+            # Track dominant emotion
+            if para_scores:
+                dominant_emotions.append(max(para_scores, key=para_scores.get))
+
+        except Exception as e:
+            print(f"Skipped paragraph {idx+1}: {str(e)}")
+
+    # Calculate weighted averages
+    total_weight = sum(para_weights) or 1
+    weighted_avg = {
+        label: (emotion_totals[label] / total_weight)
+        for label in (model.config.id2label.values() if model_type != "siebert" else ["negative", "positive"])
     }
 
-    # Final result
-    result = {
-        "average_scores": average_scores,
-        "dominant_emotion": dominant_emotion,
-        "dominant_emotion_score": dominant_emotion_score,
-        "respect_contempt_json": respect_contempt_json
+    # Combine with max scores
+    combined_scores = {
+        label: (weighted_avg.get(label, 0) + emotion_max.get(label, 0)) / 2
+        for label in weighted_avg
     }
+    sorted_scores = dict(sorted(combined_scores.items(), key=lambda x: x[1], reverse=True))
 
-    return result
+    # Dominant emotion calculations
+    soft_dominant = max(sorted_scores, key=sorted_scores.get) if sorted_scores else None
+    hard_dominant = Counter(dominant_emotions).most_common(1)[0][0] if dominant_emotions else None
+
+    # Respect/Contempt analysis (only for Go Emotions models)
+    respect_set = {"admiration", "approval", "caring"}
+    contempt_set = {"annoyance", "disapproval", "disgust"}
+    
+    respect_scores = {k: v for k, v in sorted_scores.items() if k in respect_set}
+    contempt_scores = {k: v for k, v in sorted_scores.items() if k in contempt_set}
+    
+    attitude_emotion = max({**respect_scores, **contempt_scores}, 
+                          key=sorted_scores.get, default=None)
+
+    return {
+        "average_scores": sorted_scores,
+        "soft_dominant_emotion": soft_dominant,
+        "soft_dominant_emotion_score": sorted_scores.get(soft_dominant, 0),
+        "hard_dominant_emotion": hard_dominant,
+        "hard_dominant_emotion_confidence": (Counter(dominant_emotions)[hard_dominant]/len(dominant_emotions) if hard_dominant else 0),
+        "respect_contempt_json": {
+            "respect_emotions": respect_scores,
+            "contempt_emotions": contempt_scores,
+            "dominant_attitude_emotion": attitude_emotion,
+            "dominant_attitude_score": sorted_scores.get(attitude_emotion, 0)
+        }
+    }
 
 def result_to_dataframe(result):
-    # Flatten nested dicts
-    rows = []
+    """Maintain original output format"""
+    all_labels = [
+        "admiration", "amusement", "anger", "annoyance", "approval", "caring",
+        "confusion", "curiosity", "desire", "disappointment", "disapproval",
+        "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+        "joy", "love", "nervousness", "optimism", "pride", "realization",
+        "relief", "remorse", "sadness", "surprise", "neutral"
+    ] + ["positive", "negative"]  # For Siebert compatibility
 
-    for label, score in result["average_scores"].items():
+    rows = []
+    for label in all_labels:
         rows.append({
             "label": label,
-            "avg_score": score,
+            "avg_score": result["average_scores"].get(label, 0.0),
             "category": (
                 "respect" if label in result["respect_contempt_json"]["respect_emotions"]
                 else "contempt" if label in result["respect_contempt_json"]["contempt_emotions"]
                 else "other"
             ),
-            "dominant_attitude": (
-                "yes" if label == result["respect_contempt_json"]["dominant_attitude_emotion"] else "no"
-            ),
-            "dominant_emotion": (
-                "yes" if label == result["dominant_emotion"] else "no"
-            )
+            "hard_dominant_emotion": "yes" if label == result["hard_dominant_emotion"] else "no",
+            "soft_dominant_emotion": "yes" if label == result["soft_dominant_emotion"] else "no"
         })
+
     return pd.DataFrame(rows)
 
-
-def run_go_emotions(transcript, model_type):
-    model, tokenizer = load_model()
-    output_json = classify_emotions(transcript, model_type, model)
-    f = result_to_dataframe(output_json)
-    f.to_csv("emotion_output.csv", index = False)
-
-    return output_json
+def run_go_emotions(transcript, model_type="roberta_go_emotions"):
+    """Main execution function"""
+    model, _ = load_model() if model_type in ["roberta_go_emotions", "go_emotions"] else (None, None)
+    output_json = classify_emotions_paragraphwise(transcript, model_type, model)
+    df = result_to_dataframe(output_json)
+    return output_json, df
 
 # Example usage
 if __name__ == "__main__":
     run_go_emotions()
-    

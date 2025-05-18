@@ -1,0 +1,399 @@
+hi there in today's video we'll be
+creating a portfolio website like this
+in under 15 minutes to showcase our data
+science portfolio and we'll also be
+deploying our website for free using a
+custom domain if you own one many of you
+have probably done really amazing
+projects you might have put some cool
+projects up on your github written some
+articles here and there or published
+your dashboards on tableau public and so
+on but one little problem with that is
+that those projects are scattered on
+different platforms on the internet
+which makes it a bit inconvenient for
+you to showcase them to other people one
+perfect solution for this and it's
+exactly what we'll be tackling today is
+to create a portfolio website where you
+can tie everything together in one
+central place showing who you are and
+maybe telling about your most weird
+hobbies it helps people know you better
+and therefore it's a very good way to
+build credentials and even a personal
+brand so today we'll be using stackbit
+to build our portfolio website no coding
+is required you might be thinking what
+you're a nerd and you don't know how to
+go to website well i used to develop my
+own website for example this watercolor
+slash tech blog very weird combination
+using the static side generator gatsby
+js as much as i love coding and
+designing websites i quickly realized
+how time consuming it is to build and
+customize things to my liking and i also
+generally find it uninspiring to write
+blog posts in markdown so that's why i
+turn to stack bit so what the heck is
+spec bit it's basically a website
+builder but a quite different kind of
+website builder compared to squarespace
+or wix it provides web developers with a
+visual tool to quickly build and edit a
+jam stack website and this visual tool
+also helps developers and non-developers
+work together easily even though this
+tool is made more for developers and you
+can certainly choose do all the coding
+if you like the good thing is there are
+also a few really nice pre-designed
+themes that we can use and this is what
+we'll be doing today let's get started
+all right so let's head over to
+stackmate website then we're gonna go to
+get started so as you can see here this
+is a comment that you can use to start a
+local development environment if you
+want to go to your website yourself
+however for this simple portfolio
+website that we'll be creating today
+we'll just start with a pre-designed
+theme so here we have a couple of
+different themes here i'll go ahead and
+choose this theme so if you haven't had
+an account yet at some point you have to
+sign up but i already have an account so
+i'll just go ahead and start my project
+so here we can name our project let's
+say this is my website then we click on
+create sites it will take a couple of
+seconds when you first load the website
+this is our website so this is all the
+code for the website and this is based
+on next.js and if you want to you can
+even transfer all the gold to your
+github repo so this is pretty nice you
+can deploy your website anywhere you
+want but today we are not going to
+tinker with any of the code we will just
+visually edit our website so this is the
+website that we have let's start editing
+our website so here i have the title
+i'll just change it to my name and here
+we have the navigation bar and here we
+have adventures
+let's see what it is
+the venture is basically the blog posts
+so i will go ahead and change this to
+project for example so this section will
+be where i write my about my project
+here we have the
+contact say this is contact me i feel
+like i don't particularly like this hero
+section so much so i'll go ahead and try
+to replace it with something else here
+you can see the add section button here
+click on it and then you'll see that
+there are a bunch of different
+components or the sections that you can
+choose from if we go to the hero so this
+is the current hero section that we have
+i feel like this one is a bit better so
+i'll choose it
+and then i can delete this section
+and now we can go ahead and adjust this
+hero section here we can say welcome to
+my portfolio website then here we can
+say yeah a few words about ourselves ah
+what should i say data node learning
+creativity the url of this one is block
+so i want to direct this button to the
+blog page on our website i will edit
+this as well this will see projects we
+can also change our pictures let me
+upload okay i have a portrait photo
+looks good if you have a landscape photo
+instead you can just put in the photo
+editor in your computer and then you can
+crop your picture to this kind of size
+so this looks already pretty good right
+let's preview it we can even publish it
+you can see that this is a default
+domain of our website so later in this
+video we'll be connecting our website to
+a custom domain that we own and here
+this is the publish button we can click
+on it and then the website will be
+deployed to this default domain now
+while waiting for our website to be
+published we can continue editing our
+website in this hero section i also want
+to add a few links to for example my
+linkedin profile and my github profile
+as well so let's click on this little
+plus button here and you can choose to
+add here either another button or a link
+so i'll choose a link so here we have
+the default learn more and so i can
+direct this link to an url we can just
+copy this url paste it here we can add
+an icon here so here we have the
+linkedin icon now in a very similar
+fashion we will go ahead and create
+another link to our github profile so
+here we will have our url which is our
+github profile i'll paste it here and in
+the styling we will add an icon which is
+our github which is here and show this
+icon
+and here we can remove this label learn
+more this looks very nice and now we can
+go ahead and edit other sections of our
+website as well
+so here's the quote
+section so maybe we can choose this
+color to make it pop a little bit more
+so these colors
+we can edit in our styling
+section here the global styling if you
+go to the color palette you can see that
+this is the color palette that is used
+at the moment but we can certainly
+choose a different color for our website
+a very nice website for this is the cool
+color yeah coolers dot co it has all
+kinds of different colors so we can
+start the generator and here are the
+different kind of color combination that
+we can choose from this is pretty handy
+if you want to select a different kind
+of color palette now we want to have a
+different quote this one is pretty nice
+we cannot solve our problems with the
+same thinking we used when we created
+them i'll just do this one and copy to
+our quote section here we can say this
+is from
+albert einstein and here we can
+basically remove this the next section
+is basically the posts section so
+basically the blog section here we have
+two blog posts here we will go ahead and
+edit them in a bit here we can say
+something like a recent project
+and here we can say
+this is a co project instead
+here are the blog posts that are default
+in this theme but we'll go ahead and
+delete them and create our own blog post
+because they have at the moment like
+different slots and we don't want to use
+these locks so let's duplicate this one
+the first one is probably python
+dashboard and this is a default blog
+post on our website we can change the
+picture here to a picture of our project
+and here we can say interactive of co2
+emissions
+using panel hp plot we can select
+different dates so we can choose maybe
+today and then we can edit the content
+of our blog post here we have different
+kind of header here we can say
+motivation and we can even embed a
+picture then we could even create a
+quote a lot of data visualization and uh
+if you select the markdown here if you
+toggle on this you can see that this is
+the markdown format of our blog post as
+i mentioned earlier i'm not very big fan
+of writing blog posts in this kind of
+fashion let's go back to the home here
+we can remove this blog post
+and we can add another post here um we
+say existing we'll select this post that
+we just created yeah the picture is now
+still default picture we will select our
+own picture about the project so yeah
+this is our blog post this one also
+we'll go ahead and remove it and we can
+add another blog post here let's
+duplicate this one suicidal landscape
+we will change this picture to
+this one
+and here we can say the name of the
+project is visualizing
+the suicidal cases
+in the netherlands in 2018 and yes so we
+can add post here existing um you can
+add this one
+change the picture okay this is very
+nice the keep reading link label now at
+the moment is a joint adventure so we
+can say here probably read more and here
+um in the styling
+we can even change to different kinds of
+arrangements so at the moment it is two
+columns grid but we can also choose to
+have a list instead so let's see what it
+looks like so this is the list format
+but i'll just keep the two columns great
+i think it looks much better
+and i can probably also promote my
+youtube channel i also make videos on
+youtube
+we can also change this picture to
+another picture a very nice website for
+royalty-free picture is unsplash so you
+can search for anything for example
+youtube
+orientation landscape let's say i want
+to have this photo then i can go ahead
+and select this photo
+so
+add background image
+oops i chose a different image for my
+laptop i just leave it and in the about
+section we can also go ahead and adjust
+this about section we can add a picture
+of ourselves for example
+and as i mentioned earlier we can also
+create a whole new page for our website
+so to do that we will click on the plus
+button here we will create for example
+add a new empty page and we can select
+the slack for this page the gallery for
+example
+then this is the empty page that we have
+and we can add different sections here
+for example media gallery
+to create a link to this page we can add
+something in the navigation pane for
+example we can create a link we will
+have the url here we can say this will
+direct to the gallery page we can have
+also the label here is gallery rather
+yeah so now we have this page and if we
+click on it then this will be our new
+page and to publish the website you can
+see here this is all the changes that we
+have made and we can go ahead and click
+on the publish button
+so on namecheap or godaddy you can buy a
+domain very cheaply for example i bought
+this domain name
+conscientiousgeek.com for like nine
+dollars so domain names are usually very
+cheap if you don't have the same name as
+elon musk for example now we'll go ahead
+and connect our website to this domain
+name so if you click on the clock icon
+over here and go to the domain tab you
+see the steps we need to take to connect
+our website to our own domain name so we
+basically follow the instructions on
+this page we need to add two records to
+our dns settings the first one is a
+cname record and the second one is an a
+record so for the cname record we just
+go ahead and copy paste our current
+project domain name here
+and for the a record we'll enter a value
+field specified in the instructions
+which is 75 to 65. i realized later that
+i should replace stack bit with netlify
+on the domain name here because the
+website is actually hosted on netlify so
+don't forget to change it for your own
+case as well now you can go ahead and
+save those records
+the next step is to simply to enter a
+custom domain in this box and click on
+save now it usually takes an hour or two
+for those dns changes to propagate
+through the internet's global domain
+name service system so please be patient
+and check the status again after a few
+hours just a side note if you get stuck
+at this step for very long time then you
+should try to remove and fill in your
+domain name again in this box this has
+helped me before so this is our final
+website which looks pretty decent and is
+also connected to our custom domain
+which is really really nice the next
+step is to promote your website and let
+people know about your project whenever
+you write about a new project on your
+website make a tweet about it and add a
+link to your website you can also write
+posts on linkedin as well to share with
+your professional network which i
+usually feel too embarrassed to do
+another way to promote your blog which i
+like is import your blog post into
+medium it's very easy to do all you need
+to do is to enter the url of your blog
+post and click on import then you can
+further customize your post on medium
+and you may notice that at the end of
+the post there's an automatic line that
+says this post is originally published
+on your website which is really great
+because people who read your article can
+also go to your website if they want to
+so in this video i showed you one of the
+most simple and low budget ways to
+create a website but there are many
+other options as well you can choose
+from the most basic way is to build a
+simple html css file on html5 up website
+for example you can find a bunch of nice
+templates for this but this option is
+usually only suitable for websites that
+have only a few pages and not suitable
+for blogging because every time you make
+a new page you'll have to copy paste the
+whole html together with the header
+photo and other components on the page
+which is very cumbersome so the solution
+that people often turn to is to use
+static side generators like hugo gatsby
+and j gold they are free and open source
+tools to build website and i love them
+but they often require quite some
+knowledge of web development and it can
+take a lot of coding to make a website
+decent looking even if you just want to
+customize a pre-designed theme on the
+other end of spectrum we have no code
+website builders that offer visual
+editing interface like wix and
+squarespace they are very convenient but
+they are not free you typically pay 10
+to 20 bucks a month for using the theme
+and for the hosting service which is
+unnecessary in my opinion because you
+can technically host your portfolio
+website for zero dollar using github
+page or netlife so it's totally your
+core what best fits your experience and
+budget having built this amazing
+portfolio website that you can use for
+data science blogging now you can focus
+on doing projects if you are looking for
+project ideas you can check out my
+previous video over here about how i
+find project ideas and also check out
+the portfolio project playlist on my
+channel for some end-to-end project
+tutorials in r and python again if you
+got any value from this video don't
+forget to hit the like button and
+subscribe if you haven't already for
+more data science related content and
+with that i'll see you in the next video
+bye

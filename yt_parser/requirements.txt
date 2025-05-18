@@ -10,3 +10,4 @@ nltk
 transformers
 torch
 boto3
+openpyxl

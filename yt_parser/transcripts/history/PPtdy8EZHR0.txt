@@ -1,0 +1,1043 @@
+[music playing]
+Hi, I’m Philip Resnik,
+from the University of Maryland.
+Before we get started, I want to note
+that some of the things
+we will be talking about
+in this talk can be challenging.
+And if you, or somebody that you care
+about is having difficulty,
+feeling hopeless,
+feeling in a crisis,
+there are resources
+that you can reach out
+to and some of them
+are on this slide.
+So to start with, I want to situate
+mental health
+within the broader
+context of healthcare.
+One thing that a lot of people
+don’t realize is that mental health
+is every bit as much of a problem
+as pretty much anything else
+we face in healthcare.
+In surely, economic terms
+mental illness,
+in terms of its global worldwide
+cost,
+is right up there
+with cardiovascular diseases
+and it’s more than diabetes
+and chronic respiratory diseases
+and cancer combined.
+What makes it worse in the US
+is that even if you are somebody
+who knows you are having a problem
+and you want to get help,
+a third of the population
+in the United States lives in an area
+that’s been federally designated
+as not having enough mental-health
+care providers.
+Suicide, in 2016, became the second
+leading cause of death
+for young people in the US
+between the ages of 10 and 34.
+And in fact, in the US,
+suicide is quite a lot more
+prevalent than homicide.
+If you think about the problems
+that clinicians face,
+one way to look at it is as
+a sequence of things that happens.
+You have what I will call screening,
+which is trying to identify
+that somebody has a problem
+that needs
+to be dealt with in the first place.
+Second is assessment, trying
+to figure out what the problem is,
+how severe it is.
+Then you have intervention,
+treatment and finally,
+when somebody is in treatment
+or therapy of some kind,
+you have monitoring in order
+to keep track of their condition
+and see if they’re still okay, see if
+they’re going downhill and so forth.
+Now these are really hard problems
+even for clinicians,
+a small subset
+of the problems they face.
+One is that a lot of the interaction
+they have takes the form
+of a structured interview,
+and when you are doing that,
+you are drawing on your training
+and that may involve very different
+theories or underlying paradigms.
+There is not necessarily a standard
+approach to every problem.
+Second, clinicians are often
+going on instinct,
+not just the data or aspects
+of the clinical training.
+And so this introduces
+potentially the risk of bias.
+For example, when a clinician
+might be dealing with somebody
+who is not from
+their own socio-economic group
+or racial category,
+or from some other community
+that they’re less familiar with.
+And this really comes out
+when clinicians have to deal
+with people from a specialized
+population of some kind.
+Many clinicians don’t have
+the specialized training
+to deal with,
+for example, military veterans,
+or people with drug addictions
+and so forth.
+One of the biggest problems
+that clinicians have is
+that they have a limited window into
+what’s going on with the patient.
+They have these clinical visits,
+and if you think about it,
+a typical psychiatric visit,
+these are perhaps regular,
+perhaps few or far between.
+And you’ve got often 15 minutes
+that are devoted primarily
+to managing somebody’s medications.
+There’s an enormous amount
+of the lived experience
+of a patient that clinicians
+simply have no access to.
+And the problems are more
+complicated today
+in the shadow
+of the Covid-19 pandemic.
+Clinicians have expressed concerns
+about a mental-health tsunami,
+about an eco-pandemic that’s coming
+about as a result of things
+like social isolation
+and financial burden and stress.
+Now there is an enormous amount
+of potential for technology to help.
+Franklin and colleagues
+did a meta-analysis,
+where they looked at the research
+on suicidal thoughts and behaviors
+using traditional methods
+for studying the problem
+and trying to understand
+what factors put people at risk.
+And what they discovered
+is that the ability
+to predict suicidal thoughts
+and behaviors
+has not improved over the space
+of 50 years of research.
+Looking at their data,
+they came to the conclusion
+that the current state of things
+suggested a shift
+from the traditional
+risk factor-based methods
+to taking a data-driven machine-
+learning approach to the problem.
+So one way of looking at this
+is thinking about suicide
+as a binary prediction problem.
+One would like to separate users
+who will go onto make
+an attempt from users who don’t.
+And by users, by the way,
+I am foreshadowing the idea
+that we’re going to be looking at
+for example social media evidence
+as opposed to simply things
+in a clinical setting.
+A very nice paper on this topic
+is written by Glen Coppersmith
+and colleagues in 2018.
+At the left here, you see
+a performance curve, an ROC curve,
+for a bunch of predictive models
+that they developed on predicting
+a suicide attempt or not,
+a binary classification problem,
+from somebody’s
+social media evidence.
+The diagonal line is Chance
+Performance and Perfect
+is up into the left,
+and you can see, you’re getting some
+pretty strong performance here.
+In fact, in their analysis
+they looked at
+a theoretical population
+of a thousand individuals.
+They extrapolated their results
+into the statistics
+of a real-world setting
+where you had a typical
+prevalence of peoples’
+likelihood of making
+a suicide attempt.
+40 – 60% of the people that the model
+predicted would go on
+to make a suicide attempt did.
+In contrast, if you look at
+the typical performance of clinicians
+trying to make the same prediction,
+a typical clinician,
+in their judgments, 4 –
+6% of the people that they predict
+will go onto a suicide attempt
+actually go on to do so.
+And so the message here is clear,
+these machine-learning models
+actually may not be perfect,
+but they have an enormous amount
+of valuable possibility,
+potential information in them.
+And it’s not just the binary
+classification problem,
+it’s also about understanding
+what’s going on with people
+and characterizing that in ways
+that clinicians can understand.
+So here, for example, is an essay
+written by a college student
+about coming to college.
+And a typical machine-learning
+approach
+will identify useful features
+for say,
+a binary classification problem.
+I’ve put them in bold here.
+But you can also take a more
+nuanced approach, colleagues
+and I used a kind of technology
+called a Topic Model
+in order to automatically,
+in an unsupervised way
+for the language,
+but then with some supervision
+related to personality.
+We'll get to that in a second.
+We used these techniques
+to in some sense,
+evoke or discover themes
+in the language
+that people were using
+in these college essays.
+So for example, in blue here
+you see language
+that’s related to social isolation,
+‘I don’t want to go to class
+or leave my room or talk to people.’
+The things in red are related
+to vegetative symptoms,
+that is energy level.
+The things in green are related
+to anhedonia,
+that is being unable to enjoy things
+that you used to enjoy.
+In an analysis that we did,
+we looked at a large set
+of these kinds of essays
+and looked at the kinds of themes,
+which you can kind of think of
+as very much like word clusters,
+that came out of this.
+So you have one row per topic
+or theme that was discovered.
+And we looked at these using a model
+that related
+a person’s language
+to their score for neuroticism
+on a standard personality
+inventory.
+And what we found was, for example,
+that in the themes or topics
+that were not associated
+with neuroticism
+you tended to find things
+like going to sports,
+listening to music,
+going to parties,
+things that are indicative
+of social engagement
+of people in this population.
+In things that were more positively
+associated with neuroticism,
+which is by the way,
+often co-morbid with depression,
+and that was the context of this,
+trying to find things that might be
+relevant for looking at depression,
+you have those energy-related
+things like sleep and getting tired.
+But you also see this being expressed
+through
+what was automatically
+discovered in the data in ways
+that are specific
+to the college population.
+Right?
+I mean you wouldn’t expect
+that other populations
+would necessarily express
+a lack of energy level
+in terms of things
+like being late for class
+or falling asleep in class
+or taking naps.
+But that’s what you see
+in a college population.
+The same kinds of techniques
+can be applied to other populations
+in order to look at things
+that are more specific to them.
+And of course, a similar thing
+goes on here
+where you see a topic showing up
+that’s about anxiety,
+stress, nervousness.
+And not surprising for this
+population you seen things like tests
+and studying and feeling anxious,
+and having a hard time focusing.
+Now, what I’ve said so far is
+that there are some
+real opportunities for progress
+because there is useful signal
+in peoples’ language.
+But progress depends on actually
+having the data to work with,
+and that can be a real challenge.
+In a clinical setting, HIPAA
+and privacy considerations
+can make it very difficult
+to actually get relevant data
+related to mental-health
+and healthcare in general.
+In addition, that data alone
+doesn’t give you much more than
+a limited window into
+what’s going on in peoples’ lives.
+So I’m going to use a term
+that Coppersmith introduced,
+‘The Clinical Whitespace’,
+in order to describe
+other kinds of data
+that are available to us,
+that didn’t used to be
+available to us.
+What computational social
+scientists sometimes call
+‘The Digital Traces
+of People’s Lived Experiences’.
+What you have here at the top
+in the little red lines
+are one individual’s
+healthcare interactions,
+five of them over
+the course of a year.
+The blue lines are their social media
+posts over the same time period.
+So you can see the term ‘Clinical
+White Space’ is really evocative.
+You literally have the white space
+between the healthcare encounters,
+where there’s an enormous
+amount of information.
+And it’s social media
+so it’s information in the form
+of language to a great extent,
+and that’s incredibly
+useful information
+to have in a mental-health setting.
+Now of course, there are privacy
+issues, ethical issues,
+technical issues
+in being able to obtain
+and work with those kinds of data.
+What Coppersmith and colleagues
+have done
+is set up a data
+donation platform called
+‘Our.Data.Helps.Org’,
+and that is a platform
+that enables anybody to go
+and donate their data for research,
+primarily people who have survived
+a suicide attempt
+and want to donate their data
+to help others.
+You can also have people who have
+loved ones who have died by suicide,
+donating the data of the loved ones.
+You can also have people who have
+never had a connection
+with suicide
+donating their data anyway,
+because of course you need people
+across all ranges
+of the mental-health spectrum
+in order to do machine learning
+and better understand
+what’s going on.
+We at The University of Maryland,
+have taken that a step further,
+collaborating with Coppersmith
+and his organization,
+they have OurDataHelps.org.
+In collaboration with them
+we’ve created UMD.OurDataHelps.org.
+And in collaboration
+with Deanna Kelly,
+at University of Maryland’s
+medical school, and Carol S.
+B.
+Wilson, and John Dickerson,
+at University of Maryland
+College Park where I am,
+we have a project going on where we
+are doing a similar kind of ethical,
+careful,
+consented data collection
+for people who may be suffering
+from schizophrenia and depression.
+So there are frameworks that make
+it possible to collect data
+in an ethical, appropriate way
+in order to do this kind of work.
+Now how do we make progress
+within natural language
+processing and AI more generally?
+Something that I think has been
+borne out literally over decades
+is that the way
+you make progress
+is by getting an entire community
+of people in the research field
+to collaborate on the same problems
+on the same datasets.
+And this falls within a category
+that sometimes is referred to
+as a shared task.
+You have some dataset,
+organizers of an activity,
+a shared task activity,
+make it available,
+define the specifics of the problem
+that one might be trying to solve.
+For example, it might be predicting
+the depression
+rating of an individual
+or predicting suicide attempts
+or predicting a level
+of suicide risk.
+In typical cases these are
+predictive modeling problems
+where you use supervised learning
+in order to train on a dataset
+that has the correct or ground
+truth answers for individuals,
+and then you test on a held out,
+or previously unseen dataset
+of individuals and evaluate.
+So that’s what you see here,
+you identify a dataset
+that people are going to use
+in common, you define the task,
+you get a bunch of teams
+to participate,
+using different kinds of approaches.
+You get the data out to them,
+you then get test data out to them
+to evaluate on, you evaluate
+and see how they did
+and then you have a conversation,
+you have a workshop, a conference,
+getting people together to talk
+about what worked well,
+what worked not well
+and what you should do next.
+Now you may notice something here,
+this idea of distributing data
+is a real problem.
+From a privacy point of view,
+this is one of the enormous
+problems in healthcare in general
+and certainly in mental health
+as well,
+even with social media data,
+which can be quite sensitive.
+Simply getting data out
+to the research community
+is something that makes
+a lot of people nervous
+and possibly justifiably so
+because it introduces risk.
+So how do we solve that problem?
+That’s a problem that’s really
+been holding the field back.
+Well, one approach that has
+recently been explored
+is the idea
+of a secure data enclave.
+A number of people have been
+exploring variations on this theme.
+In collaboration with folks at NORC
+at the University of Chicago,
+that’s a non-profit
+research organization,
+I have been working to help them
+develop a secure data enclave
+where the idea is you bring
+the researchers to the data,
+rather than vice versa.
+There is a secure environment
+where the data live,
+and the researchers come there,
+and the data can’t get out.
+So we’ve actually been in the process
+of doing that
+for a shared task specifically
+focused on prediction of suicide
+risk as a part
+of a workshop called
+‘The Workshop on Computational
+Linguistics and Clinical Psychology’
+that is a part of
+The North American Association
+for Computational Linguistics
+Conference in 2021.
+The way that this enclave works
+is teams
+can go to a log-in page
+with secure log-in credentials,
+come into the enclave
+to a secure desktop,
+a virtual desktop
+that doesn’t let data out.
+In fact it doesn’t even let them
+copy and paste
+from inside
+and outside the desktop.
+And from there, they can then go
+to an AWS-backed environmental
+where they have the full arsenal
+of natural language
+processing
+and machine-learning tools
+and can work on the data
+in this secure environment
+in order to develop predictive models
+and improve the algorithms
+and do formative assessment
+of how they’re doing.
+And to do summative assessment
+by taking that test data
+they’ve never seen before
+and evaluating
+and seeing how their system does.
+And then finally, at the upper right,
+you have the ability to take things
+like results off of the enclave,
+but that goes through a careful
+process of review and governance
+to make sure nothing is leaving
+the enclave that shouldn’t.
+That little x is showing you that
+this entire process
+is disconnected
+from the internet at large,
+except through carefully
+governed processes.
+And so we actually just completed
+a shared task
+looking at level of risk assessment
+for a dataset of individuals
+who had posted on social media.
+And I’m not going to go
+through the numbers here.
+The take-home message
+is we have teams, we have numbers,
+we have improvements over the baseline
+performance that took place
+because people were able to do
+this work and improve the approaches.
+And we’re having a workshop
+to discuss it
+and then hopefully to figure out
+what we’ve learnt
+and move the field forward.
+So let’s suppose we’re wildly
+successful.
+Suppose we have great data
+and suppose
+this gives us great classifiers,
+great predictions in the case
+of mental-health conditions,
+suicide attempts and so forth.
+There’s a question that we
+as technologists often don’t ask,
+which is ‘Then what?’
+We think about a particular
+abstraction of the problem.
+We’re taking a bunch of data,
+we have a prediction task,
+we apply our techniques, we obtain
+predictions, we evaluate them.
+But of course all of this takes place
+within a broader
+mental-health eco-system.
+If one were going to actually use
+this for something useful,
+and I need to remind you
+that a little while ago
+we talked about the fact
+that the mental-healthcare system
+is already overburdened
+and under-resourced.
+What happens in a country,
+in the US for example,
+where you have
+a third of the population
+who would have a hard time
+seeing a mental-health provider
+even if they knew they had a problem.
+What happens when we start
+getting better at identifying
+that somebody might need
+to be seen,
+what happens when we increase
+the number of true positives?
+And of course, also add false
+positives to that as well.
+This suggests a shift,
+there are really two shifts.
+One that I’m not going into here
+is a shift from viewing
+this as a technological problem
+to viewing it as a societal problem.
+One of the best ways
+to solve the problem
+with under-resourced
+mental-healthcare
+is to provide more resources
+for mental-healthcare.
+But as technologists we also
+can make progress.
+And one of the ways that I want
+to suggest we can make progress
+is by a shift from thinking
+about mental-health in general
+and this problem of predicting
+whether somebody may be
+at risk for suicide.
+Going from thinking of it
+as a classification problem,
+a yes or no,
+to thinking of it as a kind
+of a prioritization problem.
+You have a population of individuals
+and the traditional technology-
+centric use of the problem,
+which have been taken in a variety
+of shared tasks at that CL
+Site workshop,
+at the Clay E-Risk workshops
+and other forms
+where people work on this.
+That view tends to say
+it’s a labeling problem yes or no?
+Or maybe it’s a stratified,
+multiple label,
+severe, moderate, low-risk,
+no-risk and so forth.
+But that may not be enough,
+it doesn’t take into account
+the realities of the world
+that the clinicians live in.
+So let’s abstract what that world
+looks for a second.
+Think about somebody I will
+describe as an expert,
+somebody somewhere in the set
+of clinicians who evaluate people.
+They have a population of individuals
+who might potentially be at risk.
+So this is the monitoring piece
+from that earlier slide.
+I’m not talking about
+screening everybody;
+I’m talking about let’s start
+by looking at the problem
+with a population of people that
+you already know might be at risk.
+In that population, somehow you need
+to prioritize limited resources
+such as the clinician's time.
+And if you have evidence coming
+from the kinds of techniques
+that I’ve been talking about,
+you may have, say,
+lots of social media posts.
+A clinician can’t look at everything
+to help decide how much attention
+and when this particular patient
+is going to need.
+So you also have a nested
+prioritization problem,
+where you have to decide
+what is most likely the thing
+the clinician should look at
+in order to figure out
+what’s going on with the patient.
+And of course, all of this has to be
+done within limited resources,
+and particularly the time
+of the humans in this loop.
+With student Hon Chang Ching
+and my colleague, Doug Ord,
+we’ve developed
+a technical approach to this,
+it takes advantage of something
+from deep learning
+called The Three Level,
+Hierarchical Attention Network.
+And the interesting thing about this
+particular deep-learning approach
+is that you may have a situation
+where you have a single label
+for an individual
+and also evidence from say
+multiple documents,
+and within that document
+multiple sentences say.
+And you don’t have individual
+documents
+labeled like you often do
+in natural language processing,
+supervised learning problems,
+it’s just the individual.
+This is an architecture
+that allows you to have
+just the label
+of the individual at the top
+and to use what you learn
+in training to help decide
+which of the documents
+were most responsible
+for the label
+that was predicted,
+and which of the sentences
+within the documents
+and words within the sentences
+were most responsible
+for what’s being predicted.
+And this enables you to produce
+results at run time,
+at test time, if you will,
+where you can take a population
+of previously unseen
+individuals, rank them.
+Here we’ve got the individuals
+being ranked,
+and then for each individual
+in a nested way, rank their documents
+and here you also have a heat map
+over the individual words
+that might be responsible.
+What you’re seeing here
+are actual results,
+obfuscated for privacy reasons,
+but actual results of the top
+three individuals
+in some experimentation that we did.
+And within the individuals
+you see the documents.
+And then you see the heat map
+over the words that were most
+important in making the prediction
+that produced the ranking,
+that this was one, two and three,
+in terms of suicide risk.
+Once you do that you can quantify
+how well it is that your system
+is doing by imagining
+and in fact simulating a scenario
+where you have a clinician
+with limited time.
+And simulating, estimating
+the amount of time things take,
+and then finally saying
+for a given time budget
+how many individuals who actually
+are at risk, the positive instances,
+would they have found
+within that time budget.
+And so here’s a result
+from Han’s paper.
+The thing that I want to point
+to here is the middle column,
+where we simulated
+a time budget of three hours,
+and the numbers here
+are the number of individuals
+severely at risk in our population,
+in our dataset,
+of which there were 44
+severely at risk in total.
+How many of them would have been
+found by the clinician
+within a three-hour time budget
+using different ways
+of processing documents
+and assigning rankings of individuals
+and rankings of documents.
+And what you can see here
+is that number at the bottom
+of the middle column
+is significantly higher than, say,
+the baselines we have up
+at the top of the column.
+If you use some of the more naïve
+approaches
+like user-logistic regression
+and rank individuals using that,
+and then just look at their documents
+in reverse chronological order
+or forward chronological order,
+you can see that using a more
+sophisticated architecture
+you can improve
+on the number of individuals
+that could have been found
+on average,
+within that specific time budget.
+Now there’s another interesting
+approach to prioritization,
+that colleagues
+and I have been working with.
+There is a colleague of mine
+named John Dickerson
+at The University of Maryland,
+and this comes about because
+I went to a talk that he gave.
+It had nothing to do
+with mental health.
+He was using a machine-learning
+approach called Multi-Armed Bandits,
+and a particular development of that
+that he and students had done called
+Tiered Multi-Armed Bandits,
+sort of a hierarchy
+of Multi-Armed Bandits.
+And they were applying this
+to the problem
+of deciding who should get a job.
+And the idea here is that each stage
+or tier of their framework
+you have successively more
+costly ways of gathering information
+that also are successively
+or progressively more informative.
+So at Stage 1, maybe you do
+something like reviewing a resume,
+which is relatively inexpensive.
+Some subset of the population then
+passes through to the next stage,
+and maybe you do a remote interview,
+and then that’s more
+expensive of course.
+You only want another subset
+of those to pass onto say
+the most expensive stage
+where they might do an onsite visit.
+And from that you then say,
+‘Okay, this is the subset
+that I’m going to hire.’
+And I actually went to this talk
+on this topic,
+and I said ‘John’,
+and I grabbed him by the arm.
+This is actually quite literally
+grabbed him by the arm
+and dragged him off to coffee,
+and I said
+‘You actually are solving my problem.
+You have a hammer,
+and the problem that I’m focused
+on looks a lot like a nail.’
+And so we’ve now been collaborating
+on a framework
+where you take exactly
+this same kind of approach
+but in a mental-health setting,
+where the goal
+is to take a population
+and have them go through
+successively more costly
+but also more informative assessments
+in order to decide
+at the end of the process
+which subset of those are the highest
+priority for clinical attention.
+So you could imagine
+that at the first stage you do
+the kinds of predictive modelling
+that I was just talking about.
+At the second stage, perhaps,
+it’s more costly
+in an individual’s
+time and intrusiveness,
+but maybe you get them to interact
+online with an avatar
+or do a survey or do
+other information-gathering steps
+to get an idea
+of what’s going on with them,
+without a human clinician
+in the loop.
+Maybe some subset of those
+gets passed on for review,
+to have somebody who is not
+the end-state clinician
+but somebody in the middle,
+review these things and say
+‘Okay, this is the evidence
+I’ve got, these are the ones
+who need the most
+immediate attention’ and so forth.
+Now I need to emphasize that
+within this kind of setting
+we are envisioning
+doing this with people
+who are already being cared of.
+And therefore, at any step in the
+process you still have the ability,
+in fact the need,
+to receive conventional care
+on conventional schedules.
+That’s the line
+that you have across the top here,
+so people are still seeing
+their clinicians
+in a regularly scheduled way.
+They’re still going ahead and able
+to call them
+when they need them and so forth.
+The idea here is that this is a way
+of utilizing limited resources
+in order to add information that
+might not have been available before
+in order to improve what’s going on
+with that patient in-between
+when they are calling their doctor,
+or in-between their regular
+clinical visits and so forth.
+So this is an approach
+that is underway
+and something we’re going to be
+continuing to develop in the future,
+informed by this scenario, this idea
+of a prioritization framework.
+So let me leave you with a couple
+of take aways.
+Takeaway number 1 is that
+mental healthcare is healthcare,
+it is an enormous problem
+right up there.
+People often don’t think about it
+along with the huge problems
+that we face
+in the healthcare system,
+things like cancer and chronic
+diseases,
+cardiovascular diseases,
+all the rest of that.
+But mental healthcare is right up
+there with those by any way
+of measuring things, whether you’re
+talking about the economic costs,
+whether you’re talking about
+the human cost.
+A second takeaway is that language
+contains really valuable signal.
+Language
+in the clinical records,
+yes, I haven’t talked much
+about that here in this talk.
+But also language that people
+use in their everyday life
+to which we have greater
+and greater access,
+thanks to the ability to look at
+what they’re saying on social media.
+And here along with this takeaway
+I have to emphasize
+that there are deep, ethical issues
+that need to be grappled with
+in order to figure out
+appropriate ways to improve things.
+And this is something that there’s
+an entire sub-community
+emerging on that is involved
+in ethical considerations
+and discussions like that.
+Third, I want to emphasize
+that we need prioritization.
+Not just binary classification tasks,
+we need to be thinking about
+the then what question.
+What is it that happens
+when technology enters
+the broader mental-health eco-system,
+what impact is that going to have?
+And given the severe
+resource limitations
+that we are likely to continue
+seeing onward into the future,
+this creates a set
+of computational problems
+that can be viewed as resource
+allocation and optimization
+and constrained optimization
+problems of various kinds.
+And finally, in terms of using
+data ethically
+and making progress
+so that more people are okay
+with sharing their data
+and more organizations
+are okay with researchers
+using data for purposes of this kind,
+I want to leave you with
+the suggestion that data enclaves
+are a potentially really useful,
+interesting way to enable
+that kind of work to go on
+while keeping the data privacy issues
+and all of the other ethical
+issues of governance
+and so forth very firmly in mind.
+I would like to thank my
+collaborators over quite a few years.
+I would like to thank a variety of
+sources here for financial support,
+and I would like to thank you
+very much for listening.

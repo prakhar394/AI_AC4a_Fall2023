@@ -1,0 +1,779 @@
+before going back to the questions
+please don't forget to subscribe the
+channel and press the Bell icon to the
+questions question one a company employs
+a team of customer service agents to
+provide telephone and email support to
+customers the company develops a web
+chat bot to provide automated answers to
+Common customer queries Which business
+benefit should they expect as a result
+of creating the web chat bot solution
+our options are a a increased sales B A
+reduced workload for the customer
+service agents C improved product
+reliability the correct option is B A
+reduced workload for the customer
+service
+agents question two for a machine
+learning progress how should you split
+data for training and evaluation our
+options are a use features for training
+and labels for evaluation
+B randomly split the data into rows for
+training and rows for
+evaluation C use labels for training and
+features for
+evaluation D randomly split the data
+into columns for training and columns
+for evaluation the correct answer is B
+randomly split the data into rows for
+training and rows for
+evaluation use split rows not columns
+the split data module is particularly
+useful when you need to separate data
+into training and testing sets use the
+split rows option if you want to divide
+the data into two parts you can specify
+the percentage of data to put in each
+split but by default the data is divided
+50/50 you can also randomize the
+selection of rows in each group and use
+stratified
+exampling question three you build a
+machine learning model by using the
+Automated machine learning user
+interface you need to ensure that the
+model meets the Microsoft transparency
+principle for responsible AI what should
+you do our options are a set validation
+type to Auto B enable explain best model
+C set primary metric to accuracy D set
+max concurrent iterations to zero the
+correct answer is B
+enable explain best
+model model explain ability most
+businesses run on trust and being able
+to open the ml blackbox helps build
+transparency and Trust in heavily
+regulated Industries like healthcare and
+banking it is critical to comply with
+regulations and best practices one key
+aspect of this is understanding the
+relationship between input variables and
+model output knowing both the magnitude
+and direction of the impact each feature
+has on the predicted value helps better
+understand and explain the model with
+model explainability we enable you to
+understand feature importance as part of
+automated ml
+runs question four hotspot for each of
+the following statements select yes if
+the statement is true otherwise select
+no note each correct selection is worth
+one point
+answer area to the statements
+forecasting housing prices based on
+historical data is an example of anomaly
+detection the correct answer is no to
+the next one identifying suspicious
+sinins by looking for deviations from
+usual patterns is an example of anomaly
+detection the correct answer is yes to
+the next one predicting whether a
+patient will develop diabetes based on
+the patient medical history is an
+example of anomaly detection the correct
+answer is
+no statement a refers to regression
+statement B refers to anomaly and
+statement C refers to classification
+anomaly detection incompasses many
+important tasks in machine learning
+identifying transactions that are
+potentially fraudulent learning patterns
+that indicate that a network intrusion
+has occurred finding abnormal clusters
+of patients checking values entered into
+a system question five hotspot to
+complete the sentence select the
+appropriate option in the answer area
+answer area the handling of unusual or
+missing values provided to an AI system
+is a consideration for the Microsoft
+Dash principle for responsible AI our
+options are
+inclusiveness privacy and security
+reliability and safety
+transparency the correct option is
+reliability and
+safety reliability and safety AI systems
+need to be reliable and safe in order to
+be trusted it is important for a system
+to perform as it was originally designed
+and for it to respond safely to new
+situations its inherent resilience
+should resist intended or unintended
+manipulation rigorous testing and
+validation should established for
+operating conditions to ensure that the
+system responds safely to edge cases and
+a/b testing and Champion SL Challenger
+methods should be integrated into the
+evaluation process an AI system
+performance can degrade over time so a
+robust monitoring and model tracking
+process needs to be established to
+reactively and proactively measure the
+model's performance and retrain it as
+necessary to modernize it
+question six you are designing an AI
+system that empowers everyone including
+people who have hearing and visual and
+other
+impairments this is an example of which
+Microsoft guiding principle for
+responsible AI our options are a
+fairness b inclusiveness c reliability
+and safety D accountability the correct
+option is B incl
+inclusiveness at Microsoft we firmly
+believe everyone should benefit from
+intelligent technology meaning it must
+incorporate and address a broad range of
+human needs and experiences for the 1
+billion people with disabilities around
+the world AI Technologies can be a game
+changer question seven you are building
+an AI system which task should you
+include to ensure that the service meet
+the Microsoft transparency principle for
+responsible AI our options are a ensure
+that all visuals have an Associated text
+that can be read by a screen reader B
+enable autoscaling to ensure that the
+service scales based on demand C provide
+documentation to help developers debug
+code D ensure that a training data set
+is representative of the population the
+correct answer is C provide
+documentation to help developers debug
+code question eight your company is
+exploring the use of voice recognition
+Technologies in its smart home devices
+the company wants to identify any
+barriers that might unintentionally
+leave out specific user groups this is
+an example of which Microsoft guiding
+principle for responsible AI our option
+are a accountability B fairness c
+inclusiveness d privacy and security the
+correct answer is C
+inclusiveness inclusiveness this means
+that no one is left
+out question n what are three Microsoft
+guiding principles for responsible AI
+each correct answer presents a complete
+solution note each correct section is
+worth one point our options are a
+knowledgeability b decisiveness c
+inclusiveness d fairness e
+opinionated and F reliability and safety
+the correct options are c d and f that
+is inclusiveness fairness and
+reliability and
+safety the the six guiding principles
+are fairness inclusiveness transparency
+privacy and security reliability and
+safety and
+accountability question 10 to complete
+the sentence select the appropriate
+option in the answer area answer area
+returning a bounding box that indicates
+the location of a vehicle in an image is
+an example of our options are image
+classification object detection Optical
+Character
+recognizer semantic
+segmentation the correct answer is
+object detection object detection is the
+correct answer setic segmentation can
+seem tempting at first but that is more
+about classifying individual pixels
+based on their
+objects question 11 hotspot to complete
+the sentence select the appropriate
+option in the answer area answer area
+Dash is used to generate additional
+features our options are feature
+engineering feature selection model
+evaluation model training the correct
+option is feature
+engineering
+explanation feature engineering is
+applied first to generate additional
+features and then feature selection is
+done to eliminate irrelevant redundant
+or highly correlated features question
+12 urun is a charity event that involves
+posting photos of people wearing
+sunglasses on Twitter you need to ensure
+that you only retweet photos that meet
+the following
+requirements include one or more faces
+contain at least one person wearing
+sunglasses what should you use to
+analyze the images our options are a the
+verify operation in the face service B
+the detect operation in the face service
+C the describe image operation in the
+computer vision service D the analyze
+image operation in the computer vision
+service the correct option is B the
+detect operation in the phase
+service phase detect can be requested to
+also detect glasses attribute question
+13 when you design an AI system to
+assess whether loans should be approved
+the factors used to make the decision
+should be explainable this is an example
+example of which Microsoft guiding
+principle for responsible AI our options
+are a
+transparency b
+inclusiveness c fairness D privacy and
+security the correct answer is a
+transparency achieving transparency
+helps the team to understand the data
+and algorithms used to train the model
+what transformation log was applied to
+the data the final model generated and
+and its Associated assets this
+information offers insights about how
+the model was created which allows it to
+be reproduced in a transparent way
+question 14 drag drop match the
+principles of responsible AI to
+appropriate requirements to answer drag
+the appropriate principles from the
+column on the left to its requirement on
+the right each principle may be used
+once more than once or not at all you
+may need to drag the split bar between
+pains or scroll to view content note
+each correct selection is worth one
+point select and place the principles
+given to us are fairness privacy and
+security reliability and safety and
+transparency to the answer area the
+first statement is the system must not
+discriminate based on gender race the
+correct option here is fairness to the
+next statement personal data must be
+visible only to approve the correct
+option here is privacy and security to
+the last statement automated decision
+making processes must be recorded So
+that approved users can identify why a
+decision was made the correct option is
+transparency question 15 drag drop you
+plan to deploy an Azure machine learning
+model as a service that will be used by
+client applications which three
+processes should you perform in sequence
+before you deploy the model to answer
+move the appropriate processes from the
+list of processes to the answer area and
+arrange them in the correct order select
+and place the processes provided to us
+are data encryption model retraining
+model training data preparation model
+evaluation the correct sequence here
+would be data preparation model training
+model evaluation
+question 16 you are building an AI based
+app you need to ensure that the app uses
+the principles for responsible AI which
+two principles should you follow each
+correct answer presents part of the
+solution note each correct selection is
+worth one point our options
+are a Implement an agile software
+development methodology B Implement a
+process of AI model validation as part
+of the software review process C
+establish a risk governance committee
+that includes members of the legal team
+members of the risk management team and
+a privacy officer D prevent the
+disclosure of the use of AI based
+algorithms for automated decision making
+the correct answer is B and C that is
+Implement a process of AI model
+validation as part of the software
+review process and establish a risk
+governance committee that includes
+members of the legal team members of the
+risk management team and a privacy
+officer B ensures reliability and safety
+principle and C ensures privacy and
+security principle of
+AI question 17 hotspot to complete the
+sentence select the appropriate option
+in the answer area answer area according
+to Microsoft's Dash principle of
+responsible ai ai systems should not
+reflect biases from the data sets that
+are used to train the systems our
+options are accountability fairness
+inclusiveness transparency the correct
+option is
+fairness question 18 hotspot to complete
+the sentence select the appropriate
+option in the answer area answer area
+data values that influence the
+prediction of a model are called our
+options are dependent variables features
+identifiers labels the correct option is
+features question 19 which type of
+machine learning should you use to
+predict the number of gift cards that
+will be sold next month our options are
+a classification B regression C
+clustering the correct answer is B
+regression in the most basic sense
+regression refers to the prediction of a
+numeric Target linear regression
+attempts to establish a linear
+relationship between one or more
+independent variables and a numeric
+outcome or dependent variable
+you use this module to Define a linear
+regression method and then train a model
+using a labeled data set the train model
+can then be used to make
+predictions question 20 you have a data
+set that contains information about taxi
+Journeys that occur during a given
+period you need to train a model to
+predict the fair of a taxi Journey what
+should you use as a feature our options
+are a the number of Taxi Journeys in the
+data set B the trip distance of
+individual taxi Journeys C the fair of
+individual taxi Journeys D the trip ID
+of individual taxi Journeys the correct
+answer is B the trip distance of
+individual taxi Journeys the label is
+the column you want to predict the
+identified features are the inputs you
+give the model to predict the label from
+the example given below the trip
+underscore time underscore in UND
+underscore seconds is the only column
+that is not a feature this is because
+you want to predict the fear of the trip
+before the trip is completed at that
+moment you don't know how long the trip
+would take thus trip time is not a
+feature and du shall exclude this column
+from the
+model question 21 you need to predict
+the ca level in meters for the next 10
+years which type of machine learning
+should Studio use our options are a
+classification B regression C clustering
+the correct answer is B
+regression in the most basic sense
+regression refers to prediction of in
+numeric Target linear regression
+attempts to establish a linear
+relationship between one or more
+independent variables and a numeric
+outcome or dependent variable you use
+this module to Define a linear
+regression method and then train a model
+using label data set the train model can
+then be used to make
+predictions question 22 hotspot to
+complete the sentence select the
+appropriate option in the answer area
+answer area a banking system that
+predicts whether a loan will be repaid
+is an example of the dash type of
+machine learning our options are
+classification regression
+clustering the correct answer is
+classification classification as the
+prediction whether the loan will be
+repaid or not whether means class
+categorically answer as yes or no hence
+classification question 23 which service
+should you use to extract text key /
+value payers and table data
+automatically from scan documents our
+options are a form recognizer B text
+analytics C language understanding D
+custom Vision the correct answer is a
+form
+recognizer accelerate your business
+processes by automating information
+extraction form recognizer applies
+Advanced machine learning to accurately
+extract text key/value Pairs and tables
+from documents with just a few samples
+form recognizer tailors its
+understanding to your documents both on
+premise and in the cloud turn forms into
+usable data at a fraction of the time
+and cost so you can focus more time
+acting on the information rather than
+compiling
+it question 24 hotspot to complete the
+sentence select the appropriate option
+in the answer area answer area the
+ability to extract sub totals and totals
+from a reip is a capability of the dash
+service our op options are custom Vision
+form recognizer ink recognizer text
+analytics the correct answer is form
+recognizer accelerate your business
+processes by automating information
+extraction form recognizer applies
+Advanced machine learning to accurately
+extract text key value Pairs and tables
+from documents with just a few examples
+form recogn tailor its understanding to
+your documents both on premise and in
+the cloud turn forms into usable data at
+a fraction of the time and cost so you
+can focus more time acting on the
+information rather than compiling
+it question 25 you use Aur machine
+learning designer to publish an
+inference pipeline which two parameters
+should you use to access the web service
+each correct answer presents part of the
+solution note each cor selection is
+worth one point our options are a the
+model name B the training endpoint C the
+authentication key and D the rest end
+point the correct answer is C and D that
+is the authentication key and the rest
+end
+point you can consume a published
+pipeline in the published pipeline page
+select a published Pipeline and find the
+rest end point of it
+to consume the pipeline you need the
+rest end point for your service the
+primary key for your
+service question 26 hotspot to complete
+the sentence select the appropriate
+option in the answer area answer area
+from aure machine learning designer to
+deploy a real-time inference pipeline as
+a service for others to consume you must
+deploy the model to our options are a
+local web service a z container
+instances
+aure kubernetes Services aure machine
+learning compute the correct answer is
+aure kubernetes
+services to perform realtime inferencing
+you must deploy a pipeline as a realtime
+endpoint Real Time end points must be
+deployed to an Azure kubernetes service
+cluster question 27 hotspot to complete
+the sentence select the appropriate
+option in the answer area answer area
+predicting how many hours of overtime a
+delivery person will work based on the
+number of order received is an example
+of our options are classification
+clustering regression the correct option
+is
+regression again in the most basic sense
+regression refers to prediction of a
+numeric Target linear regression
+attempts to establish a linear
+relationship ship between one or more
+independent variables and a numeric
+outcome or dependent variable you use
+this module to Define a linear
+regression method and then train a model
+using label data set the trained model
+can then be used to make
+predictions question 28 a medical
+research project uses a large anonymized
+data set of brain scan images that are
+categorized into predefined brain
+hemorrage types you need to use machine
+learning to support early detection of
+the different brain hemorrage types in
+the images before the images are
+reviewed by a person this is an example
+of which type of machine learning our
+options are a clustering B regression C
+classification the correct answer is C
+classification this is
+classification there are multiple
+reasons for this the trading data is
+already tagged as with the correct type
+of hamage classification can be done for
+more than two clusters you do clustering
+on group of inputs for example the scans
+of 10 people you can cluster a single
+input clearly you got a new scan of a
+new patient and you want to know what
+that scan shows you don't have a group
+scans to Cluster clustering gives no
+labels you just get groups and don't
+know what the label is but in this
+question it is very clear that they want
+to know know the label that belongs to
+the new scan thus it is
+classification question 29 when training
+a model why should you randomly split
+the rowes into separate subsets our
+options are a to train the model twice
+to attain better accuracy B to train
+multiple models simultaneously to attain
+better performance C to test the model
+by using data that was not used to train
+the model the correct option is C to
+test the model by using data that was
+not used to train the
+model first we use the data set for
+training and then for
+evaluation he is referring to the famous
+Trainor testore split that everyone uses
+to split the data set into train and
+test sets you lose statistical Power by
+estimating on a subset n like 50% of
+original n that's the price you pay for
+splitting data
+for example a normally independently
+distributed X has an estimator of
+arithmetic mean X whose variance
+inversely related to n bigger sample is
+a better for accuracy of a simple
+arithmetic mean question 30 you are
+evaluating whether to use a basic
+workspace or an Enterprise workspace in
+Azure machine learning what are two
+tasks that require an Enterprise
+workspace each correct answer presents a
+a complete solution note each cor
+selection is worth one point our options
+are a use a graphical user interface to
+run Automated machine learning
+experiments B create a compute instance
+to use as a workstation C use a
+graphical user interface to Define and
+run machine learning experiments from
+aure machine learning designer D create
+a data set from a comma separated value
+CSV file the correct answers are A and C
+that is use a graphical user interface
+to run automated machine learning
+experiments and to use a graphical user
+interface to Define and run machine
+learning experiments from aure machine
+learning
+designer note Enterprise workspaces are
+no longer available as of September 2020
+the basic workspace now has all the
+functionality of the Enterprise
+workspace question 31 you need need to
+predict the income range of a given
+customer by using the following data set
+which two Fields should you use as
+features each correct answer presents a
+complete solution note each correct
+selection is worth one point our options
+are a education level B last name c age
+D income range and E first name the
+correct options are a and C that is
+education level and
+age first name last name age and
+education level are features income
+range is a
+label first name and last name are
+Irrelevant in that they have no bearing
+on income age and education level are
+the features you should
+use question 32 you are building a tool
+that will process images from retail
+stores and identify the product of
+competitors the solution will use a
+custom model which asure cognitive
+Services service should you use our
+options are a custom Vision B form
+recognizer C face D computer vision the
+correct answer is a custom
+Vision as your custom vision is an image
+recognition service that lets you build
+deploy and improve your own image
+identifier models an image identifier
+applies labels to images according to
+their detected visual characteristics
+unlike the computer vision service
+custom Vision allows you to specify your
+own labels and train custom models to
+detect
+them question 33 what are two metrics
+that you can use to evaluate a
+regression model each correct answer
+presents a complete solution note each
+correct selection is worth one point our
+options are a coefficient of
+determination
+R2 B fub1 score C root means squared
+error D area under curve and E balanced
+accuracy the correct answer is a and C
+that is coefficient of determination and
+root means squared
+error about a r s or coefficient of
+determination represents the predictive
+power of the model as a value between
+INF and
+1. 1. means there is a perfect fit and
+the fit can be arbitrarily poor so the
+scores can be negative about C RMS loss
+or root mean squar error also called
+root mean Square deviation rmsd measures
+the difference between values predicted
+by a model and the values observed from
+the environment that is being modeled
+small tip if it is regression model then
+remember R and the corresponding answer
+will be R2 and
+rmsc question 34 which type of machine
+learning should you use to identify
+group of people who have similar
+purchasing habits our options are a
+classification B regression C clustering
+the correct answer is C
+clustering clustering is a machine
+learning task that is used to group
+instances of data into clusters that
+contain similar characteristics
+clustering can also be used to identify
+relationships in a data
+set question 35 hotspot to complete the
+sentence select the appropriate option
+in the answer area answer area Dash
+models can be used to predict the sale
+price of auction item our options are
+classification clustering regression the
+correct answer is
+regression regression is a machine
+learning task that is used to predict
+the value of the label from a set of
+related
+features question 36 which metric can
+you use to evaluate a classification
+model our options are a to positive rate
+b mean absolute error C coefficient of
+determination D root mean squared error
+the correct answer is a through positive
+rate what does a good model look like an
+Roc curve that approaches the top left
+corner with 100% true positive rate and
+0% false positive rate will be the best
+model a random model would display as a
+flat line from the bottom left left to
+the top right corner verse then random
+would dip below the Y is equal to X
+line question 37 which two components
+can you drag onto a canvas in aure
+machine learning designer each correct
+answer presents a complete solution note
+each correct selection is worth one
+point our options are a data set B
+compute C pipeline D module the correct
+answers are are A and D that is data set
+and
+module you can drag and drop data sets
+and modules onto the canvas aure machine
+learning designer lets you visually
+connect data sets and modules on an
+interactive canvas to create machine
+learning
+models question 38 you need to create a
+training data set and validation data
+set from an existing data set which
+module in the aun machine learning
+designer should you use of options are a
+select columns in data set B add rows C
+split data D join
+data the correct answer is C split
+data a common way of evaluating a model
+is to divide the data into a training
+and test set by using split data and
+then validate the model on the training
+data use the split data module to Dev
+divide a data set into two distinct sets
+the studio currently supports training
+SL validation data
+splits question 39 drag drop match the
+types of machine learning to the
+appropriate scenarios to answer drag the
+appropriate machine learning type from
+the column on the left to its scenario
+on the right each machine learning type
+may be used once more than once or not
+at all note each cor selection is worth
+one point select and Place Learning
+types classification clustering and
+regression to the answer area statement
+one predict how many minutes late a
+flight will arrive based on the amount
+of snowfall at an airport the correct
+answer here would be regression to the
+next statements segment customers into
+different groups to support a marketing
+department the correct answer here would
+be clustering to the last statement
+predict whether a student will complete
+a university course the correct answer
+here would be
+classification in box one regression
+again in the most basic sense refer to
+prediction of a numeric Target linear
+degression attempts to establish a
+linear relationship between one or more
+independent variables and a numeric
+outcome or dependent variable you use
+this module to Define a linear
+regression method and then train a model
+using a label data set the train model
+can then be used to make predictions in
+box two clustering in machine learning
+is a method of grouping data points into
+similar clusters it is also called
+segmentation over the years many
+clustering algorithms have been
+developed almost all clustering
+algorithms use the features of
+individual items to find similar items
+for example
+you might apply clustering to find
+similar people by demographics you might
+use clustering with text analysis to
+group sentences with similar topics or
+sentiment in box three two class
+classification provides the answer to
+simple two choice questions such as yes/
+no or true/
+false question 40 hotspot to complete
+the sentence select the appropriate
+option in the answer area answer area
+Dash is calculated probability of a
+correct image classification our options
+are
+accuracy confidence root mean square
+error sentiment the correct answer is
+confidence

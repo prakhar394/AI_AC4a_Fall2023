@@ -1,0 +1,357 @@
+everyone I'm sure and in this video I'm
+going to walk through a super easy way
+to make a portfolio website without any
+coding using GitHub pages so it's about
+that time of year people are graduating
+graduating college maybe you're
+graduating grad school and now it's time
+to enter the workforce and if you're
+like a lot of people you've probably
+heard of data science and how data
+scientists are doing all these cool
+things you know they're building chat
+gpts they're building models they're
+using machine learning and AI to solve
+business problems and create impacts and
+this sounds like a really fun and
+exciting field to be a part of as
+someone that works in data science a big
+problem for a lot of data scientists is
+not so much knowing your stuff like the
+technical side of things but it's the
+ability to show your stuff and sell
+yourself and this is just something that
+you never really do When developing the
+skill set to become a data scientist but
+if you're trying to get a job whether
+that's full-time at a company or you
+want to go into freelancing or
+Consulting being able to sell yourself
+is a critical part of the process so one
+thing that I found super helpful in
+getting data science work is having a
+website portfolio that employers can go
+to to see my experience my projects and
+just get to know me but the problem is
+I'm a data scientist I can build you a
+machine learning model but don't ask me
+to build you a website because it's not
+going to be great so I'm totally
+incompetent with HTML CSS any kind of
+like web dev type of stuff and if you're
+a data scientist it's likely that you're
+in a similar boat but lucky for us our
+friend GitHub has this built-in
+functionality for generating and hosting
+websites completely for free without
+requiring any kind of web development
+experience whatsoever so GitHub Pages
+makes this spinning up a website super
+simple and I use this functionality a
+lot in grad school in spinning up
+websites for my own portfolio and for
+projects that I was working on quickly
+running through here what the steps are
+you have these two options you can build
+a website from scratch and just host it
+on GitHub or you can go a much easier
+route where GitHub will generate you a
+website automatically from your readme
+file using a package called Jekyll And
+so here all you gotta do is fill out
+your readme file with what you want in
+your portfolio and then Jekyll will take
+that text and generate a website based
+on the theme that you choose not too
+long ago like one two years ago this was
+like really really stupid simple just
+looking at this website it's a
+pages.github.com just a few steps so you
+go to the repository settings and then
+it used to have this Theme Chooser built
+in so you just say like which branch you
+have your readme file in and then you
+just like choose a theme and then you
+have this user interface this GUI where
+you could just click which theme you
+wanted and it would just automatically
+generate the website so when I first
+wanted to make this video I'm like okay
+yeah it's gonna be super simple show
+people how they can make a website
+completely for free free without any web
+development experience whatsoever but
+when I came to spin up my website this
+button was not there anymore this kind
+of let me down a rabbit hole trying to
+figure out what happened couldn't find
+anything anywhere no one's made a
+YouTube video about this no one's
+written a Blog about this github's
+documentation was not very helpful to me
+however after messing around with it for
+a couple hours I finally figured it out
+and now I'm gonna walk through step by
+step how you can build your website
+using GitHub pages and this built-in
+functionality so this is what the final
+product looks like so it's a really
+clean design cool looking website you
+have your picture here you think about
+your name like whatever job you're
+looking for I didn't do any kind of
+coding whatsoever I just typed up a
+markdown file and this was automatically
+generated so I was able to throw this
+together in less than 30 minutes because
+a lot of the stuff it's just like copy
+pasting from your LinkedIn or your
+resume or something similar and so this
+is the final product now I'll walk
+through the steps to build this so first
+step go to your GitHub Pro profile if
+you don't have a GitHub profile go ahead
+and make one it should be
+straightforward and a good idea if
+you're trying to get a job in data
+science here at our GitHub profile we're
+going to go ahead and click repositories
+and you can see this is the example
+portfolio I made this past week but
+we're not going to go there we're going
+to start over from scratch and click new
+and then we should get a screen like
+this so create a new repository
+repository name so we have two options
+here option one is if you want this
+portfolio website name to just be your
+GitHub
+username.github.io you just type that in
+right here so Shaheen T is my username
+GitHub dot IO this will appear in the
+search bar and this will be your website
+name I already created a website
+portfolio using this website name so
+it's not going to work for me but if you
+haven't done this already then it should
+work for you the second option is you
+can give it any repository name you like
+so it could just be portfolio well it
+could be data science it could be data
+scientist you know whatever you want and
+what's going to happen in the search bar
+for example if you make your repository
+name portfolio what's going to appear in
+the search bar is going to be your
+GitHub
+username.github dot IO slash whatever
+you make this repository name so if I
+make a portfolio it'll be Shaheen T
+github.io portfolio Okay so we'll go
+ahead and name it portfolio we don't
+need a description here and it's
+probably best that we don't have one but
+we're going to initialize our repository
+with a readme file so we'll click that
+this is gonna make it really quick and
+easy to spin up our website I'm not
+going to have a git ignore we're not
+going to add a license that's not
+necessary so just to recap we make our
+repository name either our GitHub
+username.github.io or whatever other
+name that we like so just go in
+portfolio here don't need a description
+and just be sure to click read me and
+then we're gonna create repository and
+there we go so now we have the super
+Bare Bones repository so we already have
+a readme file here but we're going to
+need to add one more file called a
+config file so to do that we can just go
+to add file create new file and we'll
+call it
+config.yml and so now that GitHub got
+rid of this choose theme button in the
+interface so let me go back now that
+they got rid of this choose theme button
+here and you can't have this super easy
+user interface for picking your theme
+you have to do it using this config.yaml
+file and so this is actually super
+simple and it's not much more difficult
+than this interface so I'm going to kind
+of jump ahead and this is the config
+file for the example that I've already
+put together we can just go ahead and
+like copy paste this
+so title would be at the top left corner
+of the portfolio website so you can just
+put your name here logo we can actually
+comment this out for now because this is
+going to be the relative path of the
+image you want on that left hand side so
+let me just go back so this is where the
+title appears this logo relative path
+is where this image is located in your
+GitHub repo but since we're starting
+fresh I'm going to comment that out if
+you want to add text below here so if we
+added a description to our repo it would
+appear here or we can overwrite that by
+manually putting a description here so
+show downloads true it's just giving you
+these options to download the zip the
+tar or go to the GitHub so I put true
+for my example portfolio if people want
+to steal the code but for yours I mean
+this is optional if you want people to
+be able to download your code you can
+make it false or just comment it out and
+then finally the key thing is this theme
+so instead of being able to click on the
+theme we have to manually kind of type
+it out using this syntax here so I went
+with this Jekyll theme minimal so that's
+what we're seeing here it's super Sleek
+super nice I think it makes a lot of
+sense for a portfolio but if you don't
+like that for every reason there are a
+bunch of other supported themes for
+example let's click on architect and we
+can see what that looks like so that
+looks like this a little different
+different design but again this will be
+generated automatically based on your
+readme file in the GitHub repository so
+I'll share this link it's
+pages.github.com themes and I'll share
+it below if you want to explore the
+other theme options okay so we have our
+title we're going to have show downloads
+we're going to just comment this out we
+don't really need that and then we're
+just left here so really right now all
+you need is the title and the theme that
+you want to choose you go ahead and hit
+commit changes and so now you have two
+files in your repository you have your
+readme file and your config file and now
+you can just start adding stuff in here
+so like data scientist
+education work experience
+uh data scientists full of points here
+we go big impact project one big impact
+project
+two let's see what else is good to have
+here education your work experience what
+else do I have projects yes that's
+important so projects see uh and then so
+on and so forth so you can start just
+building some stuff out I'm just doing
+this so when we spin up the website
+something appears so just through
+something really simple together here
+and so still we just have a readme file
+in this simple config.yaml file and then
+the last step is to go to settings here
+we're in settings then we're going to
+scroll down to pages and then we have
+this section here build and deployment
+so here we're going to leave the source
+as is we're going to deploy from a
+branch and then under Branch we're just
+going to hit Main and then we're going
+to keep it as root because we want
+GitHub pages to look at the readme file
+and the config file in our root
+directory and we're going to hit save so
+now notice that we didn't have that
+super simple
+GUI to select our theme and then if you
+hit add a jackal theme you get some
+instructions here but I got tripped up
+on theme theme name because this isn't
+the right syntax here so this uh typo
+here
+it's uh made this like really
+straightforward task like a two-hour
+task for me so you can put just Minima
+or minimal here you have to put Jekyll
+Dash theme Dash Minima so if you were in
+a similar boat and you were struggling
+for hours like me it's just a simple
+syntax issue and that's why the
+website's not working anyway going back
+so if we go here to actions we see it's
+already been built but if we came back
+earlier we would have seen this is like
+processing and something's happening but
+we built Pages was built and deployed so
+if we click over here to deployment we
+can hit this view deployment option here
+and it'll take us to our website so oh
+look at that then you can look in your
+search bar what the website name is so
+for me it's
+shaheent.github.io portfolio and then if
+we look over here we see our readme file
+built out we have data scientists which
+was in the title so I'll go back so we
+can compare so we have our readme file
+here so data scientist
+education
+work experience
+projects EEG band discovery that looks a
+little different but looks better here
+on the website and then we just build it
+out and so we can kind of do it on the
+cooking shows where I don't walk through
+the process here and just kind of jump
+to the final product and so going to
+this example portfolio repo here are a
+few simple things to do one I'll
+definitely add a assets slash image path
+and then dump all the images you want to
+use in your portfolio here going back
+next big thing is so we'll go ahead and
+edit this readme and so configuring a
+readme file is a lot easier than
+building a website with HTML you can
+just copy paste this or clone the repo
+and use this as a starting point you can
+customize the structure you can start
+completely from scratch whatever makes
+sense for you just a couple things you
+know you can add links here so this is
+the standard GitHub syntax you just say
+what you want the text to appear as and
+then this is what the link is that
+people click on if you want to add
+images you put the title of whatever
+image and then you put the relative path
+to the image so again it's in this
+assets image subdirectory and then
+that's the file name and then so on and
+so forth so really go to town on this
+you know you can spend probably hours
+just tweaking and fine-tuning it but
+this is hopefully a nice jump start and
+it'll get you something pretty close to
+a final product okay so I rambled on a
+bit at the end there but hopefully this
+is helpful you know it's hard to get
+that first job and bring to the data
+science field so I hope this kind of
+accelerates that process for you and if
+you enjoyed this video please consider
+liking subscribing and sharing the video
+with others if you have any questions
+about like building a portfolio or like
+getting a job data science you know feel
+free to drop those in the comment
+section below I do read all the comments
+and I try to respond to all the
+questions that I receive and as always
+thank you for your time and thanks for
+watching
